@@ -1,7 +1,7 @@
 // Carga pop up al iniciar =============================
 
 $(window).load(function(){
-         // $('#osis').modal('show');
+        $('#osis').modal('show');
 });
 // ======================================================
 var dx, dy ;
@@ -29,14 +29,14 @@ var objetos = [
     { id: 'goma',        est: 0, x: 380, y: 530, width: 60, height: 40 },
     { id: 'cajaGuantes', est: 0, x: 20, y: 500, width: 150, height: 90 },
 ];
-var objetoJeringa = { id: 'jeringa' , est: 0, x: 300, y: 480, width: 70,  height: 90 };
+var objetoJeringa = { id: 'jeringa' , est: 0, x: 300, y: 480, width: 40,  height: 90 };
 
 var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
 var imgJeringa,imgGuantes, imgGoma, imgCajaGuantes;
 
 var objetoBrazo =    { id: 'brazo',  est:false , x:652, y:400, width:42, height:90 };
-var objetoGuantes =  { id: 'guantes',est: false, x: 250, y: 400, width: 130, height: 110 };
-var objetoManos =    { id: 'manos',  est: false, x: 450, y: 430, width: 130, height: 110 };
+var objetoGuantes =  { id: 'guantes',est: false, x: 250, y: 400, width: 55, height: 110 };
+var objetoManos =    { id: 'manos',  est: false, x: 450, y: 430, width: 55, height: 110 };
 var objetoSultan =   { id: 'sultan', est: false, x: 490, y: 130, width: 520, height: 420 };
 var objetoGoma2 =    { id: 'goma2',   est: false, x: 640, y: 383, width: 68, height: 40 };
 var objetoFantasma = {x:668, y:425, width:6, height:30};
@@ -154,7 +154,7 @@ function dibujarJeringa() {
         ctx.drawImage(imgJeringa, objetoJeringa.x, objetoJeringa.y, objetoJeringa.width, objetoJeringa.height);
     }
     if((objetoJeringa.est === 2)){
-        ctx.drawImage(imgJeringa, coordenadasMouse.x + 30, coordenadasMouse.y - 40, objetoJeringa.width, objetoJeringa.height);
+        ctx.drawImage(imgJeringa, coordenadasMouse.x - 4 , coordenadasMouse.y - 40, objetoJeringa.width, objetoJeringa.height);
     }
 }
 function dibujarGoma() {
@@ -229,7 +229,7 @@ function detectarClick(click){
             ctx.globalAlpha = 0.0;
             ctx.beginPath();
             ctx.fillStyle = 'blue';
-            ctx.rect(objetoJeringa.x + 5,  objetoJeringa.y+ 30, objetoJeringa.width - 30, objetoJeringa.height - 30);
+            ctx.rect(objetoJeringa.x,  objetoJeringa.y , objetoJeringa.width, objetoJeringa.height);
             ctx.fill();
             ctx.restore();
             if (ctx.isPointInPath(click.x, click.y)) {
@@ -241,7 +241,7 @@ function detectarClick(click){
 
         if((niveles[0] === 1)){
             ctx.save();
-            ctx.globalAlpha = 0.6;
+            ctx.globalAlpha = 0.0;
             ctx.beginPath();
             ctx.fillStyle = 'blue';
             ctx.rect(objetos[2].x, objetos[2].y, objetos[2].width, objetos[2].height);
@@ -300,7 +300,7 @@ function agregarEventosMouse() {
 
     canvas.addEventListener("mousemove", function(event) {
         var mouseMano = mousePosicion(canvas, event);
-        coordenadasMouse.x = mouseMano.x - 65;
+        coordenadasMouse.x = mouseMano.x ; // dibujo manos
         coordenadasMouse.y = mouseMano.y - 5;
 
         if (objetoActual !== null) {

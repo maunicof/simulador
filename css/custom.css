@@ -1,0 +1,54 @@
+@media (min-width: 1200px) {
+  .container {
+    width: 1300px;
+  }
+}
+
+body {
+     /*background: url('../img/congruent.png');*/
+    background-color: #0f0f0f;
+}
+.centrado{
+  text-align: center;
+}
+.menu{
+  background-color: rgb(100,10,170);
+
+}
+.menu-pad{
+/*  padding:10px;
+*/  height:700px;
+}
+.margen{
+  margin-top: 30px;
+}
+.img-mar{
+  margin-left: -20px
+
+}
+.img-mar3{
+  margin-left: -35px;
+}
+.img-mar2{
+  margin-left: -32px;
+}
+.parrafo{
+  font-size: 16px;
+}
+.iconos a{
+  font-size: 16px;
+  color:white;
+  /*margin-top: 30px;*/
+  margin-left: 20px;
+  margin-top: 25px;
+}
+.iconos a:hover{
+  color:rgba(0, 0, 0, 0.3);
+}
+.modal {
+   margin-top: 30px;
+}
+canvas{
+  margin-left: -10px;
+
+}

@@ -95,7 +95,7 @@ function progresoCarga() {
 
 
 function drawBackground() {
-    ctx.drawImage(fondo, 0, 0, 1100, 600);
+    ctx.drawImage(fondo, 0, 0, 1000, 660);
 }
 
 function dibujarObjetos() {

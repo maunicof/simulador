@@ -15,6 +15,14 @@ body {
   background-color: rgb(100,10,170);
 
 }
+.can{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 65px;
+}
+.bor{
+    border-radius: 6px;
+}
 .menu-pad{
 /*  padding:10px;
 */  height:700px;

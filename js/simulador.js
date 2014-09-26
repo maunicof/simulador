@@ -1,7 +1,7 @@
 // Carga pop up al iniciar =============================
 
 $(window).load(function(){
-        $('#osis').modal('show');
+        //$('#osis').modal('show');
 });
 // ======================================================
 var dx, dy ;
@@ -34,12 +34,12 @@ var objetoJeringa = { id: 'jeringa' , est: 0, x: 300, y: 480, width: 40,  height
 var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
 var imgJeringa,imgGuantes, imgGoma, imgCajaGuantes;
 
-var objetoBrazo =    { id: 'brazo',  est:false , x:652, y:400, width:42, height:90 };
+var objetoBrazo =    { id: 'brazo',  est:false , x:672, y:270, width:42, height:90 };
 var objetoGuantes =  { id: 'guantes',est: false, x: 250, y: 400, width: 55, height: 110 };
 var objetoManos =    { id: 'manos',  est: false, x: 450, y: 430, width: 55, height: 110 };
-var objetoSultan =   { id: 'sultan', est: false, x: 490, y: 130, width: 520, height: 420 };
-var objetoGoma2 =    { id: 'goma2',   est: false, x: 640, y: 383, width: 68, height: 40 };
-var objetoFantasma = {x:668, y:425, width:6, height:30};
+var objetoSultan =   { id: 'sultan', est: false, x: 540, y: 50, width: 430, height: 360 };
+var objetoGoma2 =    { id: 'goma2',   est: false, x: 664, y: 255, width: 68, height: 40 };
+var objetoFantasma = {x:684, y:300, width:12, height:30};
 
 var arrastrar;
 var objetoActual = null;
@@ -114,6 +114,7 @@ function dibujarObjetos() {
         dibujarJeringa();
         dibujarGoma();
         dibujarManos();
+        
     }
 }
 // Dibujar objetos
@@ -206,9 +207,8 @@ function verificarContacto(){
         if(hit(objetoFantasma, objetoActual)){
             if (objetoActual.id == 'goma'){
                 objetoActual.est = 0;
-                objetoActual.x = 644;
-                objetoActual.y = 385;
-                console.log('gomama');
+                //console.log('goma');
+                objetoGoma2.est = true;
                 objetos[1].est = 1;
             }
         }

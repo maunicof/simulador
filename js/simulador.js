@@ -18,22 +18,27 @@ var textoPlay = {
 var textoNivel1 = [
     { est: 'Moquillo' },
     { est: 'Epilepsia' },
-    { est: 'Neosporosis' },
-    { est: 'Lesión traumática en región lumbosacra' }
+    { est: 'Neosporosis', correcta: false },
+    { est: 'Lesión traumática en región lumbosacra' },
 ];
+var textoNivel1Sangre = [
+    { mostrar : true},
+    { est: 'Cantidad de Sangre a Extraer'},
+    { est: '1 a 3 cm3', correcta: false},
+    { est: '4 a 5 cm3', correcta: false},
+    { est: '6 a 10cm3', correcta: false}
+];
+
 
 var juego = { estado: 'apagado' };// jugando, completado
 var niveles = [ 0 , 0 , 0,  0 , 0 , 0];
+
 var objetos = [
     { id: 'peladora',    est: 0, x: 200, y: 480, width: 70,  height: 90 },
     { id: 'goma',        est: 0, x: 380, y: 530, width: 60, height: 40 },
     { id: 'cajaGuantes', est: 0, x: 20, y: 500, width: 150, height: 90 },
 ];
 var objetoJeringa = { id: 'jeringa' , est: 0, x: 300, y: 480, width: 40,  height: 90 };
-
-var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
-var imgJeringa,imgGuantes, imgGoma, imgCajaGuantes;
-
 var objetoBrazo =    { id: 'brazo',  est:false , x:672, y:270, width:42, height:90 };
 var objetoGuantes =  { id: 'guantes',est: false, x: 250, y: 400, width: 55, height: 110 };
 var objetoManos =    { id: 'manos',  est: false, x: 450, y: 430, width: 55, height: 110 };
@@ -42,9 +47,13 @@ var objetoGoma2 =    { id: 'goma2',   est: false, x: 664, y: 255, width: 68, hei
 var objetoFantasma = {x:684, y:300, width:12, height:30};
 
 var arrastrar;
+var pinchado = false;
 var objetoActual = null;
 var mouseOld = {};
 var mouseNew = {};
+
+var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
+var imgJeringa,imgGuantes, imgGoma, imgCajaGuantes;
 var imagenes = ['img/etapa1/brazo.png','img/etapa1/cajaGuantes.png',
 'img/etapa1/goma.png', 'img/etapa1/sultan2.png','img/etapa1/fondo.png','img/etapa1/hand2.png',
 'img/etapa1/hand.png','img/etapa1/jeringa.png'];
@@ -97,7 +106,8 @@ function progresoCarga() {
 function drawBackground() {
     ctx.drawImage(fondo, 0, 0, 1000, 660);
 }
-
+// Dibujar objetos
+// ==================================================
 function dibujarObjetos() {
     if (juego.estado == 'apagado'){
         
@@ -113,11 +123,11 @@ function dibujarObjetos() {
         dibujarPeladora();
         dibujarJeringa();
         dibujarGoma();
+        dibujarTextoAlPinchar();
         dibujarManos();
-        
     }
 }
-// Dibujar objetos
+// Funciones Dibujar
 // ==================================================
 function dibujarFantasma() {
     ctx.save();
@@ -159,7 +169,7 @@ function dibujarJeringa() {
     }
 }
 function dibujarGoma() {
-    console.log(objetos[1].est);
+    
     if (objetos[1].est === 1){
         ctx.drawImage(imgGoma2, objetoGoma2.x, objetoGoma2.y, objetoGoma2.width, objetoGoma2.height);
     }else{
@@ -182,6 +192,61 @@ function dibujarTextoComenzar(){
         ctx.restore();
     }
 }
+function dibujarTextoAlPinchar(){
+    if ((pinchado) && (textoNivel1Sangre[0].mostrar === true)) {
+        placaTexto(
+            textoNivel1Sangre[1].est,
+            textoNivel1Sangre[2].est, 150,200,
+            textoNivel1Sangre[3].est, 150,250,
+            textoNivel1Sangre[4].est, 150,300
+            );
+        if (mascaraClick(150, 180,120,30,0.4)){
+            textoNivel1Sangre[0].mostrar = false;
+        }
+        if (mascaraClick(150, 225,110,30,0.4)){
+            textoNivel1Sangre[0].mostrar = false;
+            textoNivel1Sangre[0].correcta = true;
+        }
+        if (mascaraClick(150, 275,110,30,0.4)){
+            textoNivel1Sangre[0].mostrar = false;
+        }
+    }
+}
+// Placa texto
+// ==================================================
+function placaTexto(titulo, t1, t1x, t1y, t2, t2x, t2y, t3, t3x, t3y, t4, t4x, t4y, t5, t5x,t5y ){
+    ctx.save();
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    ctx.rect(100,120,600,300);
+    ctx.fillStyle = 'white';
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.rect(100,120,600, 40);
+    ctx.fillStyle = '#0066CC';
+    ctx.fill();
+    ctx.restore();
+
+    ctx.save();
+    ctx.fillStyle = 'white';
+    ctx.font = 'bold 18pt sans-serif';
+    ctx.fillText(titulo, 120,150);
+    ctx.restore();
+
+    ctx.save();
+    ctx.font = ' 15pt sans-serif';
+    ctx.fillText(t1, t1x,t1y);
+    ctx.fillText(t2, t2x,t2y);
+    ctx.fillText(t3, t3x,t3y);
+    ctx.fillText(t4, t4x,t4y);
+    ctx.fillText(t5, t5x,t5y);
+    ctx.restore();
+}
+
 // Mover Objetos
 // ==================================================
 function moverObjetos(){
@@ -207,7 +272,6 @@ function verificarContacto(){
         if(hit(objetoFantasma, objetoActual)){
             if (objetoActual.id == 'goma'){
                 objetoActual.est = 0;
-                //console.log('goma');
                 objetoGoma2.est = true;
                 objetos[1].est = 1;
             }
@@ -221,6 +285,16 @@ function verificarContacto(){
 function detectarClick(click){
     clickCaja();
     clickJeringa();
+    pinchar();
+
+    function pinchar(){
+        if ((objetoGoma2.est) ){
+            if (mascaraClick2(684 , 300, 15, 40, click.x + 30, click.y - 40, 0.5 )){
+                pinchado = true;
+            }
+        }
+    }
+
     function clickJeringa(){
 
         if ((objetos[1].est === 1) ){
@@ -249,7 +323,7 @@ function detectarClick(click){
             ctx.restore();
             
                 if (ctx.isPointInPath(click.x, click.y)) {
-                    console.log(objetos[0].est);
+                    
                     objetoManos.est = true;
                     //objetos[2].est = 1; habilita jeringa
                     objetos[0].est = 1; // habilita peladora
@@ -348,7 +422,8 @@ function clickComenzar(){
         }
     }
 }
-
+// Nivel 1
+// ==================================================
 function nivel1(){ //multiple choise
 
     if (niveles[0] === 0) {
@@ -376,12 +451,7 @@ function nivel1(){ //multiple choise
         ctx.restore();
 
         ctx.save();
-        // ctx.shadowColor = "black";
-        // ctx.shadowOffsetX = 0;
-        // ctx.shadowOffsetY = 0;
-        // ctx.shadowBlur = 9;
         ctx.font = ' 15pt sans-serif';
-        // console.log(mascaraClick(150,180,100,30,0.5));
         ctx.fillText(textoNivel1[0].est, 150,200);
         ctx.fillText(textoNivel1[1].est, 150,250);
         ctx.fillText(textoNivel1[2].est, 150,300);
@@ -464,7 +534,6 @@ function nivel1(){ //multiple choise
 // ==================================================
 function hit(a , b){
     var hits = false;
-
     if(b.x + b.width >= a.x && b.x < a.x + a.width){
         if(b.y + b.height >= a.y && b.y < a.y + a.height){
             hits = true;
@@ -483,7 +552,6 @@ function hit(a , b){
     return hits;
 }
 function mascaraClick( x , y, w, h, a ){
-    
     ctx.save();
     ctx.globalAlpha = a;
     ctx.beginPath();
@@ -492,6 +560,16 @@ function mascaraClick( x , y, w, h, a ){
     ctx.fill();
     ctx.restore();
     return ctx.isPointInPath(click.x, click.y);
+}
+function mascaraClick2( x , y, w, h, clickx, clicky,a ){
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.beginPath();
+    ctx.fillStyle = 'blue';
+    ctx.rect(x, y, w, h);
+    ctx.fill();
+    ctx.restore();
+    return ctx.isPointInPath(clickx, clicky);
    
 }
 function frameLoop() {

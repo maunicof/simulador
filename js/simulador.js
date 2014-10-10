@@ -316,8 +316,8 @@ function dibujarManos() {
         ctx.drawImage(imgGuantes, coordenadasMouse.x, coordenadasMouse.y, objetoGuantes.width, objetoGuantes.height);
     }
     ctx.rect(coordenadasMouse.x, coordenadasMouse.y,4,4);
-    ctx.fillStyle = '#640AAA';
-    ctx.fill();
+    // ctx.fillStyle = '#640AAA';
+    // ctx.fill();
     ctx.restore();
 }
 function dibujarPeladora() {
@@ -1008,8 +1008,23 @@ function mascaraClick2( x , y, w, h, clickx, clicky,a ){
     return ctx.isPointInPath(clickx, clicky);
    
 }
-function frameLoop() {
+function mapa(){
+        var vet = document.getElementsByClassName('texto');
+        
+        //v0.style.color = 'blue';
+        //v0.style.font = 'bold';
+        //console.log(capa);
+        for (var i=0; i < vet.length; i++) {
+            
+            if ( niveles[i] > 0){
+                vet[i].style.color = 'blue';
+                //recorrido[i].style.font = 'bold';
+                console.log( vet[i].id);
+             }
+         }
+}
 
+function frameLoop() {
     estadoJuego();
     drawBackground();
     dibujarTextoComenzar();

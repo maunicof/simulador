@@ -53,7 +53,7 @@
                     </div>
                     <div class="row">
                         <div class="iconos">
-                            <a class="btn" data-toggle="modal" data-target=".info"><i class="fa fa-list"></i></a>
+                            <a class="btn" data-toggle="modal" data-target=".mapa"  onclick="mapa()"><i class="fa fa-list"></i></a>
                             <div class="txt">Reccorrido</div>
                         </div>
                        
@@ -82,8 +82,8 @@
 
     <!-- Modal
             ================================================== -->
-    <!-- Modal Info -->
-    <div class="modal fade info" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <!-- Modal MAPA -->
+    <div class="modal fade mapa" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xs">
             <div class="modal-dialog modal-xs">
                 <div class="modal-content">
@@ -92,15 +92,33 @@
                             <span aria-hidden="true">×</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <h4 class="modal-title" id="mySmallModalLabel">Informacion</h4>
+                        <h4 class="modal-title" id="mySmallModalLabel">Mapa</h4>
                     </div>
-                    <div class="modal-body">
-                        ...
+                    <div  class="modal-body">
+                    <div class="container">
+                        <div class="col-xs-4">
+                        <div id='' class="row">
+                            <div class='v'>Veterinaria</div>
+                            <div class=""><br></div>
+                            <div class='texto' id='n0'>Diagnostico presuntivo</div>
+                            <div class='texto' id='n1'>Toma de muestra</div>
+                            <div class='texto' id='n2'>Transvasar la muestra</div>
+                            <div class='texto' id='n3'>Procesamiento con método Centrifuga</div>
+                            <div class='texto' id='n4'>Acondicionar la muestra</div>
+                            <div class='texto' id='n5'>Completar protocolo</div>  
+                        </div>
+                        </div>
+                       <!--  <div class="col-xs-4">
+                        <div class="row">
+                            <div class='v'>Laboratorio</div>
+                            <div class=""><br></div>
+                        </div>
+                        </div> -->
                     </div>
-                </div>
-                <!-- /.modal-content -->
+                </div> <!-- /.modal-content -->
             </div>
         </div>
+    </div>
     </div>
     <!-- Modal Biblio -->
     <div class="modal fade biblio" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">

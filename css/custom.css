@@ -3,11 +3,10 @@
     width: 1300px;
   }
 }
-/*.modal-dialog
-{
-    width: 700px; 
+.modal-dialog{
+    width: 900px; 
 }
-*/
+
 .modal-backdrop.modal-backdrop.fade.in {
 opacity: 0.97;
 filter: alpha(opacity = 80);
@@ -73,4 +72,12 @@ canvas{
   margin-top: -16px;
   text-align: center;
   color:white;
+}
+.v{
+  font-size: 20pt;
+}
+.texto{
+  font-size: 15pt;
+
+
 }

@@ -1,0 +1,83 @@
+@media (min-width: 1200px) {
+  .container {
+    width: 1300px;
+  }
+}
+.modal-dialog{
+    width: 900px; 
+}
+
+.modal-backdrop.modal-backdrop.fade.in {
+opacity: 0.97;
+filter: alpha(opacity = 80);
+}
+body {
+     /*background: url('../img/congruent.png');*/
+    background-color: #0f0f0f;
+}
+.centrado{
+  text-align: center;
+}
+.menu{
+  background-color: rgb(100,10,170);
+
+}
+.can{
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.bor{
+    border-radius: 6px;
+}
+.menu-pad{
+/*  padding:10px;
+*/  height:700px;
+}
+.margen{
+  margin-top: 30px;
+}
+.img-mar{
+  margin-left: -20px
+
+}
+.img-mar3{
+  margin-left: -35px;
+}
+.img-mar2{
+  margin-left: -32px;
+}
+.parrafo{
+  font-size: 16px;
+}
+.iconos a{
+  color:rgba(250, 250, 250, 0.8);
+  font-size: 46px;
+/*  color:white;
+*/  /*margin-top: 30px;*/
+  margin-left: 15px;
+  margin-top: 25px;
+  text-align: center;
+}
+.iconos a:hover{
+  color:rgba(0, 0, 0, 0.3);
+}
+.modal {
+   margin-top: 30px;
+}
+canvas{
+  margin-left: -10px;
+
+}
+.txt{
+  margin-top: -16px;
+  text-align: center;
+  color:white;
+}
+.v{
+  font-size: 20pt;
+}
+.texto{
+  font-size: 15pt;
+
+
+}

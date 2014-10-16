@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="../../favicon.ico">
+        <title>Simulador </title>
+        <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+        <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+        <script src="js/ie-emulation-modes-warning.js"></script>
+        <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+        <script src="js/ie10-viewport-bug-workaround.js"></script>
+        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="fonts/font-awesome-4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <meta name="author" content="">
+        <link href="css/custom.css" rel="stylesheet">
+        <link  href="css/main.css" rel="stylesheet">
+        
+    </head>
+    <body>
+        <div class="container ">
+            <div class="row margen " >
+                
+                <div class="col-xs-2 menu menu-pad jumbotron" >
+                    <div class="container" style=" margin-top:20px; margin-bottom:20px;">
+                        <div class="row">
+                            <div class="img-mar3 " style=" ;">
+                                <a class="btn" data-toggle="modal" data-target=".osis">
+                                <img src="img/osis.png" width="150px" alt="" ></a>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="iconos" >
+                                <a class="btn " class="btn" data-toggle="modal" data-target=".home"><i class="fa fa-home fa-2x"></i></a>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="iconos" >
+                                <a class="btn" class="btn" data-toggle="modal" data-target=".videocam"><i class="fa fa-caret-square-o-right fa-2x"></i></a>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="iconos" >
+                                <a class="btn" data-toggle="modal" data-target=".biblio"><i class="fa fa-book fa-2x "></i></a>
+                            </div>
+                            <hr>
+                        </div>
+                        <div class="row">
+                            <div class="iconos" >
+                                <a  class="btn" data-toggle="modal" data-target=".info"><i class="fa fa-info-circle fa-2x"></i></a>
+                            </div>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-10 jumbotron menu-pad">
+                    <div class="row">
+
+                        <canvas width = '900' height = '600' id='game'>
+                            Tu navegador no soporta canvas
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+            </div>   <!-- end container -->
+            
+            <!-- Modal
+            ================================================== -->
+            <!-- Modal Info -->
+            <div class="modal fade info" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xs">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="mySmallModalLabel">Informacion</h4>
+                            </div>
+                            <div class="modal-body">
+                                ...
+                            </div>
+                            </div><!-- /.modal-content -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Biblio -->
+                <div class="modal fade biblio" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                </div><!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
+                 <!-- Modal Home -->
+                <div class="modal fade home" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                </div><!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
+                                     <!-- Modal videocam -->
+                <div class="modal fade videocam" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="mySmallModalLabel">Small modal</h4>
+                                </div>
+                                <div class="modal-body">
+                                    ...
+                                </div>
+                                </div><!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
+                 <!-- Modal Osis -->
+                <div id='osis'class="modal fade osis" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xs">
+                        <div class="modal-dialog modal-xs">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="mySmallModalLabel">Mi nombre es Osis.</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <p class=""> Estaré acompañándote en todo este trayecto. Debes de tener en cuenta que a partir de la presentación del problema aproximadamente el tiempo estimado  para llegar a determinar el diagnóstico definitivo es de 45 minutos a una 1 hora. En este momento entra a la consulta un cliente llamado Jorge Del y  el nombre de su mascota es Sultán. Se procede a realizar el examen clínico correspondiente:</p>
+                                    <div class="" style="margin:30px; text-align:center;">
+                        <video src="img/intro2.ogv"  width="70%" controls stop loop preload="auto" >
+                            HTML5 Video is required for this example
+                        </video>
+                        
+                    </div>
+                                </div>
+                                </div><!-- /.modal-content -->
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <!-- End Modal================= -->
+                    
+                    <!-- Bootstrap core JavaScript
+                    ================================================== -->
+                    <!-- Placed at the end of the document so the pages load faster -->
+
+                    <script type="text/javascript">
+                    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
+                    </script>
+                    <script type="text/javascript">
+                         $(window).load(function(){
+                             $('#osis').modal('show');
+                         });
+                        };
+                    </script>
+                    <script src="js/bootstrap.min.js"></script>
+                    <script src="js/bootstrap.js"></script>
+                    <script src="js/docs.min.js"></script>
+                    <script src="js/custom.js"></script>
+                    <script src="js/simulador.js"></script>
+                    <!-- <script src="js/simulador1.js"></script> -->
+
+                    <!-- <script type="text/javascript" src="js/jquery-1.8.1.min.js"></script> -->
+                    <script type="text/javascript" src="js/jquery.video-ui.js"></script>
+                    <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+                    <script src="js/vendor/plugins.js"></script>
+                    <script src="js/main.js"></script>
+                </body>
+            </html>

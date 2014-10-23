@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="210mm"
+   height="297mm"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="textosNivel2.svg">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.98994949"
+     inkscape:cx="288.56859"
+     inkscape:cy="793.95424"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1366"
+     inkscape:window-height="709"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#808080;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:gelly"
+       x="47.142857"
+       y="58.076469"
+       id="text2985"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/0.1-nivel2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         sodipodi:role="line"
+         x="47.142857"
+         y="58.076469"
+         id="tspan2989"
+         style="font-size:13px;fill:#808080">En este momento debes procesar la muestra en forma natural, para ello elige qué valores de los </tspan><tspan
+         sodipodi:role="line"
+         x="47.142857"
+         y="73.076469"
+         id="tspan2993"
+         style="font-size:13px;fill:#808080">siguientes parámetros se utilizan para poder retraer el coágulo y así poder extraer el suero.</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       x="36.250595"
+       y="153.79076"
+       id="text2995"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         sodipodi:role="line"
+         x="36.250595"
+         y="153.79076"
+         id="tspan3003">Inclinación del tubo</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:gelly"
+       x="97.255981"
+       y="185.31213"
+       id="text3026"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         sodipodi:role="line"
+         id="tspan3028"
+         x="97.255981"
+         y="185.31213"
+         style="font-size:14px">180°</tspan><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="202.81213"
+         id="tspan3030"
+         style="font-size:14px" /><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="220.31213"
+         id="tspan3032"
+         style="font-size:14px">90°</tspan><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="237.81213"
+         id="tspan3034"
+         style="font-size:14px" /><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="255.31213"
+         id="tspan3036"
+         style="font-size:14px">45°</tspan><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="272.81213"
+         id="tspan3038"
+         style="font-size:14px" /><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="290.31213"
+         id="tspan3040"
+         style="font-size:14px">20°</tspan><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="307.81213"
+         id="tspan3042"
+         style="font-size:14px" /><tspan
+         sodipodi:role="line"
+         x="97.255981"
+         y="325.31213"
+         id="tspan3044"
+         style="font-size:14px">10</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3046"
+       y="153.79076"
+       x="280.34018"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       xml:space="preserve"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         id="tspan3048"
+         y="153.79076"
+         x="280.34018"
+         sodipodi:role="line">Temperatura</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:18px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:Sans Bold"
+       x="575.43915"
+       y="153.79076"
+       id="text3050"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         sodipodi:role="line"
+         x="575.43915"
+         y="153.79076"
+         id="tspan3052">Tiempo</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text3054"
+       y="185.31213"
+       x="284.37494"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:gelly"
+       xml:space="preserve"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         style="font-size:14px"
+         y="185.31213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3100">Ambiental (18° a 25ºC)</tspan><tspan
+         style="font-size:14px"
+         y="202.81213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3130" /><tspan
+         style="font-size:14px"
+         y="220.31213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3132">Refrigerado ( 4ºC)</tspan><tspan
+         style="font-size:14px"
+         y="237.81213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3134" /><tspan
+         style="font-size:14px"
+         y="255.31213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3136">Refrigerado ( 4ºC).Luego (-20ºC)</tspan><tspan
+         style="font-size:14px"
+         y="272.81213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3138" /><tspan
+         style="font-size:14px"
+         y="290.31213"
+         x="284.37494"
+         sodipodi:role="line"
+         id="tspan3140">Congelado  (-20ºC)</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:12px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans;-inkscape-font-specification:gelly"
+       x="584.90283"
+       y="185.31213"
+       id="text3102"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="/home/mf/lampstack-5.4.32-0/apache2/htdocs/simulador/code/simulador/img/etapa1/txt/02n2.png"
+       inkscape:export-xdpi="426.5"
+       inkscape:export-ydpi="426.5"><tspan
+         sodipodi:role="line"
+         x="584.90283"
+         y="185.31213"
+         id="tspan3104"
+         style="font-size:14px">1440 min</tspan><tspan
+         id="tspan3106"
+         sodipodi:role="line"
+         x="584.90283"
+         y="202.81213"
+         style="font-size:14px" /><tspan
+         id="tspan3108"
+         sodipodi:role="line"
+         x="584.90283"
+         y="220.31213"
+         style="font-size:14px">60 - 120 min</tspan><tspan
+         id="tspan3110"
+         sodipodi:role="line"
+         x="584.90283"
+         y="237.81213"
+         style="font-size:14px" /><tspan
+         id="tspan3112"
+         sodipodi:role="line"
+         x="584.90283"
+         y="255.31213"
+         style="font-size:14px">10 - 20 min</tspan><tspan
+         id="tspan3114"
+         sodipodi:role="line"
+         x="584.90283"
+         y="272.81213"
+         style="font-size:14px" /><tspan
+         id="tspan3116"
+         sodipodi:role="line"
+         x="584.90283"
+         y="290.31213"
+         style="font-size:14px">1 - 5 min</tspan></text>
+  </g>
+</svg>

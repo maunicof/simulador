@@ -5,140 +5,195 @@ var contM = [];
 var time = 100;
 var mostrarNom = false;
 var seleccion = [];
+var pri = [ // guardo el agujero y el tubo principales
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1}
+];
+var sec = [ // guardo el agujero y el tubo secundarios
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1}
+];
+var diag1 = [];
+var diag2 = [];
+var verificacionP = false;
+var verificacionS = false;
+var verificacionSemiFinal = false;
 
-function mostrarNombre(){
-        if (hit(coordenadasMouse, objetos[0])){
-        if (contM[1] < time){
-             dibujarTexto('Peladora', objetos[0].x - 20, objetos[0].y +100, 'white', fuente, 4, 4, 5);
-         }
-         contM[1]++;
-    }else{
-        contM[1] = 0;
-    }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetos[1])){
-        if (contM[2] < time){
-             dibujarTexto('Cinta', objetos[1].x , objetos[1].y +60, 'white', fuente, 4, 4, 5);
-         }
-         contM[2]++;
-    }else{
-        contM[2] = 0;
-    }
-//--------------------------------------------------
 
-    if (hit(coordenadasMouse, objetos[2])){
-        if (contM[3] < time){
-             dibujarTexto( 'Caja de Guantes', objetos[2].x , objetos[2].y +110, 'white', fuente, 4, 4, 5);
-         }
-         contM[3]++;
-    }else{
-        contM[3] = 0;
-    }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoJeringa)){
-        if (contM[4] < time){
-             dibujarTexto('Jeringa', objetoJeringa.x - 20, objetoJeringa.y +100, 'white', fuente, 4, 4, 5);
-         }
-         contM[4]++;
-    }else{
-        contM[4] = 0;
-    }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoGradilla)){
-        if (contM[5] < time){
-             dibujarTexto('Gradilla', objetoGradilla.x - 80, objetoGradilla.y +100, 'white', fuente, 4, 4, 5);
-         }
-         contM[5]++;
-    }else{
-        contM[5] = 0;
-    }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoTacho)){
-        if (contM[6] < time){
-             dibujarTexto('Residuos', objetoTacho.x - 20, objetoTacho.y +100, 'white', fuente, 4, 4, 5);
-         }
-         contM[6]++;
-    }else{
-        contM[6] = 0;
-    }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoDescartador)){
-        if (contM[7] < time){
-             dibujarTexto('Descartador', objetoDescartador.x - 20, objetoDescartador.y +120, 'white', fuente, 4, 4, 5);
-         }
-         contM[7]++;
-    }else{
-        contM[7] = 0;
-    }
-//--------------------------------------------------
+function centrifuga(){
+    ctx.drawImage(imgCent, objetoCent.x , objetoCent.y, objetoCent.width, objetoCent.height);
+    tubitos();
+    //ctx.drawImage(imgCruz, objCruz.x , objCruz.y, objCruz.width, objCruz.height);
+    tateti();
+    verificarCentrifuga();
 
-    if (hit(coordenadasMouse, objetoTubo)){
-        if (contM[8] < time){
-             dibujarTexto('Limpio y Seco', objetoTubo.x -50 , objetoTubo.y, 'white', fuente, 4, 4, 5);
-         }
-         contM[8]++;
-    }else{
-        contM[8] = 0;
-    }
+    function tateti(){
+        for (var i = 0; i < agujeros.length; i++) {
+            cuadrado(agujeros[i]);
+            for (var j = 2; j < objetos.length; j++) {
+                if (agujeros[i].est != -99){
+                    if (hit2(agujeros[i], objetos[j])){
+                        agujeros[i].est = -99; // el objeto hizo contacto y debe quedar fijo
+                        objetos[j].est = -99; // y el cuadrado debe desaparece
+                        objetos[j].agu = agujeros[i].id;
 
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoVidrio)){
-        if (contM[9] < time){
-             dibujarTexto( 'Vidrio', objetoVidrio.x -55 , objetoVidrio.y + 35, 'white', fuente, 4, 4, 5);
-         }
-         contM[9]++;
-    }else{
-        contM[9] = 0;
+                        tubosPrimarios(i,j);
+                        tubosSecundarios(i,j);
+                        //console.log(diag2);
+                    }
+                }
+            }
+        }
     }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoHisopo)){
-        if (contM[10] < time){
-             dibujarTexto( 'Hisopo', objetoHisopo.x - 50, objetoHisopo.y - 10, 'white', fuente, 4, 4, 5);
-         }
-         contM[10]++;
-    }else{
-        contM[10] = 0;
+    
+    function tubosPrimarios(i,j){
+        // tubos 0 y 1 que son los principales. Tienen que estar si o si
+        if ((objetos[j].id === 0) && (agujeros[i].id === 0)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'a';
+        }
+        if ((objetos[j].id === 0) && (agujeros[i].id === 2)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'b';
+        }
+        if ((objetos[j].id === 1) && (agujeros[i].id === 2)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'c';
+        }
+        if ((objetos[j].id === 1) && (agujeros[i].id === 0)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'd';
+        }
+        if ((objetos[j].id === 0) && (agujeros[i].id === 1)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'e';
+        }
+        if ((objetos[j].id === 0) && (agujeros[i].id === 3)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'f';
+        }
+        if ((objetos[j].id === 1) && (agujeros[i].id === 3)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'g';
+        }
+        if ((objetos[j].id === 1) && (agujeros[i].id === 1)) {
+            pri[i].a = agujeros[i].id;
+            pri[i].t = objetos[j].id;
+            diag1[i] = 'h';
+        }
     }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoTubo2)){
-        if (contM[11] < time){
-             dibujarTexto('Citrato', objetoTubo2.x - 20, objetoTubo2.y , 'white', fuente, 4, 4, 5);
-         }
-         contM[11]++;
-    }else{
-        contM[11] = 0;
+    function tubosSecundarios(i,j){
+        // Tubos secundarios 2 y 3 pueden no estar en la centrifuga
+        //=============================================================
+        if ((objetos[j].id === 2) && (agujeros[i].id === 0)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'a';
+        }
+        if ((objetos[j].id === 2) && (agujeros[i].id === 2)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'b';
+        }
+        if ((objetos[j].id === 3) && (agujeros[i].id === 2)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'c';
+        }
+        if ((objetos[j].id === 3) && (agujeros[i].id === 0)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'd';
+        }
+        if ((objetos[j].id === 2) && (agujeros[i].id === 1)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'e';
+        }
+        if ((objetos[j].id === 2) && (agujeros[i].id === 3)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'f';
+        }
+        if ((objetos[j].id === 3) && (agujeros[i].id === 3)) {
+            pri[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'g';
+        }
+        if ((objetos[j].id === 3) && (agujeros[i].id === 1)) {
+            sec[i].a = agujeros[i].id;
+            sec[i].t = objetos[j].id;
+            diag2[i] = 'h';
+        }
     }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoTubo3)){
-        if (contM[12] < time){
-             dibujarTexto('EDTA', objetoTubo3.x -10, objetoTubo3.y, 'white', fuente, 4, 4, 5);
-         }
-         contM[12]++;
-    }else{
-        contM[12] = 0;
+    function tubitos(){
+        ctx.drawImage(imgT1, objetos[2].x , objetos[2].y, objetos[2].width, objetos[2].height);
+        
+        ctx.drawImage(imgT2, objetos[3].x, objetos[3].y, objetos[3].width, objetos[3].height);
+        ctx.drawImage(imgT3, objetos[4].x, objetos[4].y, objetos[4].width, objetos[4].height);
+        ctx.drawImage(imgT4, objetos[5].x , objetos[5].y, objetos[5].width, objetos[5].height);
+        ctx.drawImage(imgT3, objetos[6].x, objetos[6].y, objetos[6].width, objetos[6].height);
+        ctx.drawImage(imgT4, objetos[7].x , objetos[7].y, objetos[7].width, objetos[7].height);
+        
     }
-    console.log(coordenadasMouse);
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoTubo4)){
-        if (contM[13] < time){
-             dibujarTexto('Recientemente enjuagado', objetoTubo4.x - 0, objetoTubo4.y, 'white', fuente, 4, 4, 5);
-         }
-         contM[13]++;
-    }else{
-        contM[13] = 0;
+    function verificarCentrifuga(){ // tubos 0 y 1 son correctos y deben estar enfrentados 
+        
+        if (((diag1[0] === 'a') && (diag1[2] === 'c')) || ((diag1[0] === 'd') && (diag1[2] === 'b'))) {
+            
+            
+            if(((typeof diag2[1] === "undefined") && (typeof diag2[3] === "undefined"))){
+                verificacionP = true;
+                verificacionS = true;
+            }else{
+                if (((diag2[1] === 'e') && (diag2[3] === 'g')) || ((diag2[3] === 'f') && (diag2[1] === 'h')) )  {
+                    verificacionS = true;
+                    verificacionP = true;
+                }else{
+                    verificacionS = false;
+                    //verificacionP = false;
+                    }
+                }
+        }else{
+        
+                if (((diag1[1] === 'e') && (diag1[3] === 'g')) || ((diag1[3] === 'f') && (diag1[1] === 'h'))) {
+                    
+                    if(((typeof diag2[0] === "undefined") && (typeof diag2[2] === "undefined"))){
+                        verificacionP = true;
+                        verificacionS = true;
+                    }else{
+                        if (((diag2[0] === 'a') && (diag2[2] === 'c')) || ((diag2[0] === 'd') && (diag2[2] === 'b')) )  {
+                            verificacionS = true;
+                            verificacionP = true;
+                        }else{
+                            verificacionS = false;
+                            //verificacionP = false;
+                            }
+                        }
+                }
+            }
+        //=================================
+        if ((verificacionP) && (verificacionS)) {
+            verificacionSemiFinal = true;
+        }
+        if ((verificacionP) && (verificacionS === false)) {
+            verificacionSemiFinal = false;
+        }
+        
+        console.log(verificacionSemiFinal);
+        // console.log(verificacionS);
     }
-//--------------------------------------------------
-    if (hit(coordenadasMouse, objetoFrasco)){
-        if (contM[14] < time){
-             dibujarTexto('Frasco', objetoFrasco.x - 50, objetoFrasco.y + 25, 'white', fuente, 4, 4, 5);
-         }
-         contM[14]++;
-    }else{
-        contM[14] = 0;
-    }
-//--------------------------------------------------
 }
-
 /* Funciones para detectar contacto y Clisks
 =============================*/
 
@@ -161,12 +216,50 @@ function hit(a , b){
     }
     return hits;
 }
+function hit2(a , b){
+    var hits = false;
+    if(b.x +7 + b.width -15>= a.x && b.x + 7 < a.x + a.width){
+        if(b.y + 6 + b.height -80 >= a.y && b.y + 6 < a.y + a.height){
+            hits = true;
+        }
+    }
+    if(b.x+7 <= a.x && b.x +7+ b.width -15>= a.x + a.width){
+        if(b.y + 6 <= a.y && b.y + 6 + b.height -80 >= a.y +a.height){
+            hits = true;
+        }
+    }
+    if(a.x <= b.x +7&& a.x + a.width >= b.x+7 +b.width-15){
+        if(a.y <= b.y + 6 && a.y + a.height >= b.y + 6 + b.height -80){
+            hits = true;
+        }
+    }
+    return hits;
+}
+function cuadrado(objeto){
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = 'blue';
+    ctx.rect(objeto.x, objeto.y, objeto.width, objeto.height);
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+}
 function mascaraClick( x , y, w, h, a ){
     ctx.save();
     ctx.globalAlpha = a;
     ctx.beginPath();
     ctx.fillStyle = 'blue';
     ctx.rect(x, y, w, h);
+    ctx.fill();
+    ctx.restore();
+    return ctx.isPointInPath(click.x, click.y);
+}
+function mascaraClickObjeto( objeto, a ){
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.beginPath();
+    ctx.fillStyle = 'blue';
+    ctx.rect(objeto.x, objeto.y, objeto.width, objeto.height);
     ctx.fill();
     ctx.restore();
     return ctx.isPointInPath(click.x, click.y);
@@ -228,6 +321,142 @@ function dibujarTexto(texto,x, y, color, fuente, sombrax, sombray, blur){
     ctx.fillText(texto,x ,y);
     ctx.restore();
 }
+/* muestro los nombres de los objetos
+====================================*/
+function mostrarNombre(){
+    if (mascaraClickObjeto(objetos[0], 0) ){
+        if (contM[1] < time){
+             dibujarTexto('Peladora', objetos[0].x - 20, objetos[0].y +100, 'white', fuente, 4, 4, 5);
+         }
+         contM[1]++;
+    }else{
+        contM[1] = 0;
+    }
+//--------------------------------------------------
+    if ( mascaraClickObjeto(objetos[1], 0) ){
+        if (contM[2] < time){
+             dibujarTexto('Cinta', objetos[1].x , objetos[1].y +60, 'white', fuente, 4, 4, 5);
+         }
+         contM[2]++;
+    }else{
+        contM[2] = 0;
+    }
+//--------------------------------------------------
+
+    if ( mascaraClickObjeto(objetoCaja,0)) {
+        if (contM[3] < time){
+             dibujarTexto( 'Caja de Guantes', objetoCaja.x , objetoCaja.y +110, 'white', fuente, 4, 4, 5);
+         }
+         contM[3]++;
+    }else{
+        contM[3] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto(objetoJeringa, 0)){
+        if (contM[4] < time){
+             dibujarTexto('Jeringa', objetoJeringa.x - 20, objetoJeringa.y +100, 'white', fuente, 4, 4, 5);
+         }
+         contM[4]++;
+    }else{
+        contM[4] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto(objetoGradilla, 0)){
+        if (contM[5] < time){
+             dibujarTexto('Gradilla', objetoGradilla.x - 80, objetoGradilla.y +100, 'white', fuente, 4, 4, 5);
+         }
+         contM[5]++;
+    }else{
+        contM[5] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto(objetoTacho, 0)){
+        if (contM[6] < time){
+             dibujarTexto('Residuos', objetoTacho.x - 20, objetoTacho.y +100, 'white', fuente, 4, 4, 5);
+         }
+         contM[6]++;
+    }else{
+        contM[6] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto(objetoDescartador, 0)){
+        if (contM[7] < time){
+             dibujarTexto('Descartador', objetoDescartador.x - 20, objetoDescartador.y +120, 'white', fuente, 4, 4, 5);
+         }
+         contM[7]++;
+    }else{
+        contM[7] = 0;
+    }
+//--------------------------------------------------
+
+    if (hit(objetoTubo, coordenadasMouse )){
+        if (contM[8] < time){
+             dibujarTexto('Limpio y Seco', objetoTubo.x -50 , objetoTubo.y, 'white', fuente, 4, 4, 5);
+         }
+         contM[8]++;
+    }else{
+        contM[8] = 0;
+    }
+
+//--------------------------------------------------
+    if (mascaraClickObjeto(objetoVidrio, 0)){
+        if (contM[9] < time){
+             dibujarTexto( 'Vidrio', objetoVidrio.x -55 , objetoVidrio.y + 35, 'white', fuente, 4, 4, 5);
+         }
+         contM[9]++;
+    }else{
+        contM[9] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto( objetoHisopo, 0)){
+        if (contM[10] < time){
+             dibujarTexto( 'Hisopo', objetoHisopo.x - 50, objetoHisopo.y - 10, 'white', fuente, 4, 4, 5);
+         }
+         contM[10]++;
+    }else{
+        contM[10] = 0;
+    }
+//--------------------------------------------------
+    if (hit( objetoTubo2, coordenadasMouse)){
+        if (contM[11] < time){
+             dibujarTexto('Citrato', objetoTubo2.x - 20, objetoTubo2.y , 'white', fuente, 4, 4, 5);
+         }
+         contM[11]++;
+    }else{
+        contM[11] = 0;
+    }
+//--------------------------------------------------
+    if (hit( objetoTubo3, coordenadasMouse)){
+        if (contM[12] < time){
+             dibujarTexto('EDTA', objetoTubo3.x -10, objetoTubo3.y, 'white', fuente, 4, 4, 5);
+         }
+         contM[12]++;
+    }else{
+        contM[12] = 0;
+    }
+    
+//--------------------------------------------------
+    if (hit( objetoTubo4, coordenadasMouse)){
+        if (contM[13] < time){
+             dibujarTexto('Recientemente enjuagado', objetoTubo4.x - 0, objetoTubo4.y, 'white', fuente, 4, 4, 5);
+         }
+         contM[13]++;
+    }else{
+        contM[13] = 0;
+    }
+//--------------------------------------------------
+    if (mascaraClickObjeto( objetoFrasco, 0)){
+        if (contM[14] < time){
+             dibujarTexto('Frasco', objetoFrasco.x - 50, objetoFrasco.y + 25, 'white', fuente, 4, 4, 5);
+         }
+         contM[14]++;
+    }else{
+        contM[14] = 0;
+    }
+//--------------------------------------------------
+}
+
+
 
 // Placa texto
 // ==================================================
@@ -268,47 +497,51 @@ function placaTexto(titulo, t1, t1x, t1y, t2, t2x, t2y, t3, t3x, t3y, t4, t4x, t
 ===================================================*/
 
 function dibujarProcesarMuestra(){
-    if(niveles[2] === 1){
+    dibujarFondoTexto(50, 50, 900, 550, '#9254C4', 1 );
+    dibujarFondoTexto(50, 50, 900, 100, '#640AAA', 1 );
+    
+    // dibujarTexto(textoNivel3[4].txt,80, 90, 'white', fuente, 0, 0, 0);
+    // dibujarTexto(textoNivel3[5].txt,80, 110, 'white', fuente, 0, 0, 0);
+    // dibujarTexto(textoNivel3[1].txt,80, 180, 'black', subtitulo, 0, 0, 0);
+    // dibujarTexto(textoNivel3[1].a,150, 220, 'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[1].b,150, 260, 'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[1].c,150, 300, 'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[1].d,150, 340, 'black', tuboinc, 0, 0, 0);
+    
+    // dibujarTexto(textoNivel3[1].e,150, 380, 'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[2].txt,380, 180, 'black', subtitulo, 0, 0, 0);
+    // dibujarTexto(textoNivel3[2].a,380, 220,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[2].b,380, 260,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[2].c,380, 300,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[3].txt,760, 180, 'black', subtitulo, 0, 0, 0);
+    // dibujarTexto(textoNivel3[3].a,760, 220,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[3].b,760, 260,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[3].c,760, 300,   'black', tuboinc, 0, 0, 0);
+    // dibujarTexto(textoNivel3[3].d,760, 340,   'black', tuboinc, 0, 0, 0);
         
-        dibujarFondoTexto(50, 50, 900, 550, '#9254C4', 1 );
-        dibujarFondoTexto(50, 50, 900, 100, '#640AAA', 1 );
+    // if ((textoNivel3[6].c1) && (textoNivel3[6].c2) && (textoNivel3[6].c3)){
+    //     dibujarTexto('Continuar',760, 550, 'white', tuboinc, 4, 4, 5);
 
-        dibujarTexto(textoNivel3[4].txt,80, 90, 'white', fuente, 0, 0, 0);
-        dibujarTexto(textoNivel3[5].txt,80, 110, 'white', fuente, 0, 0, 0);
+    //     if(mascaraClick(760, 530, 90, 30, 0.0)){
+    //         niveles[2] = 2; // termino el nivel 2, no se muestra el texto
+    //     }
+    // }
+    ctx.drawImage(img01n2, texto01n2.x , texto01n2.y, texto01n2.width, texto01n2.height);
+    ctx.drawImage(img02n2, texto02n2.x , texto02n2.y, texto02n2.width, texto02n2.height);
+    
+    verificarInclinacion();
+    verificarTemperatura();
+    verificarTiempo();
+    ctx.drawImage(imgTuboSangre, objetoTuboSangre.x, objetoTuboSangre.y - 100, objetoTuboSangre.width , objetoTuboSangre.height);
 
-        dibujarTexto(textoNivel3[1].txt,80, 180, 'black', subtitulo, 0, 0, 0);
-        dibujarTexto(textoNivel3[1].a,150, 220, 'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[1].b,150, 260, 'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[1].c,150, 300, 'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[1].d,150, 340, 'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[1].e,150, 380, 'black', tuboinc, 0, 0, 0);
-
-        dibujarTexto(textoNivel3[2].txt,380, 180, 'black', subtitulo, 0, 0, 0);
-        dibujarTexto(textoNivel3[2].a,380, 220,   'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[2].b,380, 260,   'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[2].c,380, 300,   'black', tuboinc, 0, 0, 0);
-
-        dibujarTexto(textoNivel3[3].txt,760, 180, 'black', subtitulo, 0, 0, 0);
-        dibujarTexto(textoNivel3[3].a,760, 220,   'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[3].b,760, 260,   'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[3].c,760, 300,   'black', tuboinc, 0, 0, 0);
-        dibujarTexto(textoNivel3[3].d,760, 340,   'black', tuboinc, 0, 0, 0);
-        
-        if ((textoNivel3[6].c1) && (textoNivel3[6].c2) && (textoNivel3[6].c3)){
-            dibujarTexto('Continuar',760, 550, 'white', tuboinc, 4, 4, 5);
-
-            if(mascaraClick(760, 530, 90, 30, 0.0)){
-                niveles[2] = 2; // termino el nivel 2, no se muestra el texto
-            }
+    if ( (textoNivel3[6].c3 === true) && (textoNivel3[6].c2 === true) && (textoNivel3[6].c1 === true) ){
+        dibujarTexto('Continuar',750, 550, 'white', fuente, 3, 3, 4);
+        if (mascaraClick(750, 530, 100, 30, 0.0)){
+            niveles[2] = 999;
+            niveles[3] = 1;
         }
-        
-        verificarInclinacion();
-        verificarTemperatura();
-        verificarTiempo();
-        ctx.drawImage(imgTuboSangre, objetoTuboSangre.x, objetoTuboSangre.y - 130, objetoTuboSangre.width + 15, objetoTuboSangre.height + 70);
-
-
     }
+        
 
     function verificarTiempo(){
         if (mascaraClick(760, 200, 100, 30, 0.0)){
@@ -348,9 +581,11 @@ function dibujarProcesarMuestra(){
             incorrecto(355, 300);
             textoNivel3[6].c2 = false;
         }
-        
+        if (mascaraClick(380, 320, 250, 30, 0.0)){
+            incorrecto(355, 340);
+            textoNivel3[6].c2 = false;
+        }
     }
-
     function verificarInclinacion(){
         if (mascaraClick(150, 200, 50, 30, 0.0)){
             incorrecto(125  , 220);
@@ -380,23 +615,17 @@ function dibujarProcesarMuestra(){
 
 /* Textos viejos
 ===============================================*/
+
 function dibujarTextoComenzar(){
     if(juego.estado == 'apagado'){
 
-            dibujarFondoTexto(100,80,800, 270,violeta1, 1 );
-            dibujarTexto('Después de haber determinado el  diagnóstico  presuntivo del caso, se procede a la', 120, 130, colorTexto , fuente,0,0,0);
-            dibujarTexto('toma  del material biológico. Debes siempre tener en cuenta las  Normas de ', 120, 160, colorTexto, fuente,0,0,0);
-            dibujarTexto('toma  del material biológico. bioseguridad y limpieza para  llevar a cabo La práctica.  ', 120, 190, colorTexto, fuente,0,0,0);
-            dibujarTexto('Para poder realizar esta tarea, tienes que  trabajar  de la siguiente manera: ', 120, 220, colorTexto, fuente,0,0,0);
-            dibujarTexto('debes elegir y/o arrastrar los elementos que correspondan  para poder cumplir con ', 120, 250, colorTexto, fuente,0,0,0);
-            dibujarTexto('el objetivo buscado, que es llegar al diagnóstico definitivo. ', 120, 280, colorTexto, fuente,0,0,0);
-            dibujarTexto('Comenzar', 700, 320, colorTexto, fuente,3,3,4);
-            
-            if (mascaraClick(700,300, 100,30, 0.0)){
-                juego.estado = 'jugando';
-            ok = true;
-            }
-
+        // dibujarFondoTexto(695,300,100, 30,violeta1, 1 );
+        dibujarTexto('Comenzar', 700, 390, 'black', titulo,7,7,7);
+        
+        if (mascaraClick(700,360, 140,50, 0.0)){
+            juego.estado = 'jugando';
+        ok = true;
+        }
     }
 }
 
@@ -430,7 +659,7 @@ function dibujarContinuarTransversar(){
 }
 
 function dibujarTextoAlPinchar(){ // Al pinchar la pata muestra la cantidad de sangre a extraer
-    if ((objetoJeringa.est === 2) && (textoNivel1Sangre[0].mostrar === true)) {
+    if ((pinchado === 1) && (textoNivel1Sangre[0].mostrar === true)) {
         placaTexto(
         textoNivel1Sangre[1].est,
         textoNivel1Sangre[2].est, 150,200,
@@ -442,30 +671,31 @@ function dibujarTextoAlPinchar(){ // Al pinchar la pata muestra la cantidad de s
             incorrecto(130, 200);
         }
         if (mascaraClick(150, 225,110,30,0)){
-            // textoNivel1Sangre[0].mostrar = false;
-            //textoNivel1Sangre[0].correcta = true;
+            
+            pinchado = 2;
             correcto(135, 240);
-            desapareceTextoAlPichar++;
+            dibujarTexto('Extraer',560, 355, 'white', fuente, 4, 4, 4);
         }
+        // if (mascaraClick(550, 335,110,30,0.5)){
+        //     pinchado = 2;
+        //     console.log(pinchado);
+        // }
         if (mascaraClick(150, 275,110,30,0)){
             // textoNivel1Sangre[0].mostrar = false;
             incorrecto(130, 300);
         }
-        //console.log(textoNivel1Sangre[0].mostrar);
-        if (desapareceTextoAlPichar > 150){
-            textoNivel1Sangre[0].mostrar = false;
-        }
+        
     }
 }
 
 
 // Nivel 1
 // ==================================================
-
+var texto1y2 = 0;
 function nivel1(){ //multiple choise Diagnostico
         
     if (niveles[0] === 0){
-        
+        if (texto1y2 === 0) {
             dibujarFondoTexto(100,80,800,350,violeta2, 1 );
             dibujarFondoTexto(100,80,800, 80,violeta1, 1 );
             ctx.save();
@@ -482,74 +712,98 @@ function nivel1(){ //multiple choise Diagnostico
             ctx.fillText(textoNivel1[2].est, 150,300);
             ctx.fillText(textoNivel1[3].est, 150,350);
             ctx.restore();
+            mascarasN1();
+        }
+        if (texto1y2 === 1) {
+            dibujarTextoComenzarExtraccion();
+        }
 
-            /* clicks
-            =====================================*/
-            if (mascaraClick(150,270,130,45,0.0)){// correcto Continua
-                ctx.save();
-                ctx.shadowColor = "black";
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 7;
-                ctx.beginPath();
-                ctx.fillStyle = '#33CC00';
-                ctx.arc(135, 290, 7, 0, 2 * Math.PI, false);
-                ctx.fill();
-                ctx.closePath();
-                ctx.restore();
-                continuarNivel2 = 1;
-            }
-            if ( (continuarNivel2 === 1) ){// Boton continuar nivel1 true
-                ctx.save();
-                ctx.shadowColor = "black";
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 7;
-                ctx.fillStyle = 'white';
-                ctx.font = 'bold 16pt sans-serif';
-                ctx.fillText('Continuar',700,410);
-                ctx.restore();
 
-                 if (mascaraClick(700,395,100,18,0.0)){
-                    continuarNivel2 = 0;
-                    objetos[2].est = 1; // caja activa
-                    niveles[0] = 1;
-                    
-                 }
-            }
-            if (mascaraClick(150,170,100,45,0.0)){// error moquillo
-                ctx.save();
-                ctx.shadowColor = "#990000";
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 7;
-                ctx.fillStyle = 'red';
-                ctx.font = 'bold 14pt sans-serif';
-                ctx.fillText('X',130,200);
-                ctx.restore();
-            }
-            if (mascaraClick(150,220,100,45,0.0)){// error epilepsia
-                ctx.save();
-                ctx.shadowColor = "#990000";
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 7;
-                ctx.fillStyle = 'red';
-                ctx.font = 'bold 14pt  sans-serif';
-                ctx.fillText('X',130,250);
-                ctx.restore();
-            }
-            if (mascaraClick(150,320,420,45,0.0)){// error epilepsia
-                ctx.save();
-                ctx.shadowColor = "#990000";
-                ctx.shadowOffsetX = 5;
-                ctx.shadowOffsetY = 3;
-                ctx.shadowBlur = 7;
-                ctx.fillStyle = 'red';
-                ctx.font = 'bold 14pt sans-serif';
-                ctx.fillText('X',130,350);
-                ctx.restore();
-            }
+        
     }
+    /* clicks
+        =====================================*/
+    function mascarasN1(){
+            if (mascaraClick(150,270,130,45,0.0)){// correcto Continua
+            ctx.save();
+            ctx.shadowColor = "black";
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 3;
+            ctx.shadowBlur = 7;
+            ctx.beginPath();
+            ctx.fillStyle = '#33CC00';
+            ctx.arc(135, 290, 7, 0, 2 * Math.PI, false);
+            ctx.fill();
+            ctx.closePath();
+            ctx.restore();
+            continuarNivel2 = 1;
+        }
+        if ( (continuarNivel2 === 1) ){// Boton continuar nivel1 true
+            ctx.save();
+            ctx.shadowColor = "black";
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 3;
+            ctx.shadowBlur = 7;
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16pt sans-serif';
+            ctx.fillText('Continuar',700,410);
+            ctx.restore();
 
+             if (mascaraClick(700,395,100,18,0.0)){
+                
+                texto1y2 = 1;
+                
+             }
+        }
+        if (mascaraClick(150,170,100,45,0.0)){// error moquillo
+            ctx.save();
+            ctx.shadowColor = "#990000";
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 3;
+            ctx.shadowBlur = 7;
+            ctx.fillStyle = 'red';
+            ctx.font = 'bold 14pt sans-serif';
+            ctx.fillText('X',130,200);
+            ctx.restore();
+        }
+        if (mascaraClick(150,220,100,45,0.0)){// error epilepsia
+            ctx.save();
+            ctx.shadowColor = "#990000";
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 3;
+            ctx.shadowBlur = 7;
+            ctx.fillStyle = 'red';
+            ctx.font = 'bold 14pt  sans-serif';
+            ctx.fillText('X',130,250);
+            ctx.restore();
+        }
+        if (mascaraClick(150,320,420,45,0.0)){//  epilepsia
+            ctx.save();
+            ctx.shadowColor = "#990000";
+            ctx.shadowOffsetX = 5;
+            ctx.shadowOffsetY = 3;
+            ctx.shadowBlur = 7;
+            ctx.fillStyle = 'red';
+            ctx.font = 'bold 14pt sans-serif';
+            ctx.fillText('X',130,350);
+            ctx.restore();
+        }
+    }
+    function dibujarTextoComenzarExtraccion(){
+        dibujarFondoTexto(100,80,800, 270,violeta1, 1 );
+        dibujarTexto('Después de haber determinado el  diagnóstico  presuntivo del caso, se procede a la', 120, 130, colorTexto , fuente,0,0,0);
+        dibujarTexto('toma  del material biológico. Debes siempre tener en cuenta las  Normas de ', 120, 160, colorTexto, fuente,0,0,0);
+        dibujarTexto('toma  del material biológico. bioseguridad y limpieza para  llevar a cabo La práctica.  ', 120, 190, colorTexto, fuente,0,0,0);
+        dibujarTexto('Para poder realizar esta tarea, tienes que  trabajar  de la siguiente manera: ', 120, 220, colorTexto, fuente,0,0,0);
+        dibujarTexto('debes elegir y/o arrastrar los elementos que correspondan  para poder cumplir con ', 120, 250, colorTexto, fuente,0,0,0);
+        dibujarTexto('el objetivo buscado, que es llegar al diagnóstico definitivo. ', 120, 280, colorTexto, fuente,0,0,0);
+        dibujarTexto('Comenzar', 700, 320, colorTexto, fuente,3,3,4);
+        
+        if (mascaraClick(700,300, 100,30, 0.0)){
+            //juego.estado = 'jugando';
+            ok = true;
+            continuarNivel2 = 0;
+            niveles[0] = 1;
+        }
+    }
 }

@@ -7,100 +7,14 @@ $(window).load(function(){
         });
 });
 
-//Definicion de funciones
-// ======================================================
-function loadMedia() {
-    preloader = new PreloadJS();
-    preloader.onProgress = progresoCarga;
-    cargar();
-}
 
-function cargar() {
-    while (imagenes.length > 0) {
-        var imagen = imagenes.shift();
-        preloader.loadFile(imagen);
-    }
-}
-
-function progresoCarga() {
-
-    if (preloader.progress == 1) {
-        var intervalo = window.setInterval(frameLoop, 1000 / 55);
-        fondo = new Image();
-        fondo.src = 'img/etapa1/fondo.png';
-        imgSultan = new Image();
-        imgSultan.src = 'img/etapa1/sultan2.png';
-        imgGoma2 = new Image();
-        imgGoma2.src = 'img/etapa1/goma2.png';
-        imgBrazo = new Image();
-        imgBrazo.src = 'img/etapa1/brazo.png';
-        imgPeladora = new Image();
-        imgPeladora.src = 'img/etapa1/peladora.png';
-        imgGuantes = new Image();
-        imgGuantes.src = 'img/etapa1/hand2.png';
-        imgManos = new Image();
-        imgManos.src = 'img/etapa1/hand.png';
-        imgJeringa = new Image();
-        imgJeringa.src = 'img/etapa1/jeringa.png';
-        imgJeringa2 = new Image();
-        imgJeringa2.src = 'img/etapa1/jeringa2.png';
-        imgJeringaSinCanuto = new Image();
-        imgJeringaSinCanuto.src = 'img/etapa1/jeringaSinCanuto.png';
-        imgJeringaSangre = new Image();
-        imgJeringaSangre.src = 'img/etapa1/jeringaSangre.png';
-        imgCanuto = new Image();
-        imgCanuto.src = 'img/etapa1/canuto.png';
-        imgManoIzq = new Image();
-        imgManoIzq.src = 'img/etapa1/manoIzq.png';
-        imgGoma = new Image();
-        imgGoma.src = 'img/etapa1/goma.png';
-        imgCajaGuantes = new Image();
-        imgCajaGuantes.src = 'img/etapa1/cajaGuantes.png';
-        imgCurita = new Image();
-        imgCurita.src = 'img/etapa1/curita.png';
-
-        imgHisopo = new Image();
-        imgHisopo.src = 'img/etapa1/hisopo.png';
-        imgFrasco = new Image();
-        imgFrasco.src = 'img/etapa1/frasco.png';
-        imgVidrio = new Image();
-        imgVidrio.src = 'img/etapa1/vidrio.png';
-
-        imgTubo = new Image();
-        imgTubo.src = 'img/etapa1/tubo.png';
-        imgTubo2 = new Image();
-        imgTubo2.src = 'img/etapa1/tubo.png';
-        imgTubo3 = new Image();
-        imgTubo3.src = 'img/etapa1/tubo.png';
-        imgTubo4 = new Image();
-        imgTubo4.src = 'img/etapa1/tubo.png';
-
-        imgTuboSangre = new Image();
-        imgTuboSangre.src = 'img/etapa1/tuboSangre.png';
-        imgGradilla = new Image();
-        imgGradilla.src = 'img/etapa1/gradilla.png';
-        imgTacho = new Image();
-        imgTacho.src = 'img/etapa1/tacho.png';
-        imgDescartador = new Image();
-        imgDescartador.src = 'img/etapa1/descartador.png';
-        imgJeringa3 = new Image();
-        imgJeringa3.src = 'img/etapa1/jeringa3.png';
-        imgCent = new Image();
-        imgCent.src = 'img/etapa1/centrifuga.png';
-
-    }
-}
 function drawBackground() {
     ctx.drawImage(fondo, 0, 0, 1000, 660);
 }
 // Dibujar objetos
 // ==================================================
 function dibujarObjetos() {
-    
-    if (juego.estado == 'apagado'){
-        dibujarManos();
-        //juego.estado = 'jugando';
-    }
+
     if (juego.estado == 'jugando'){
         // dibujo todo hasta el nivel 2 inclusive
         if (niveles[2] === 0){
@@ -114,7 +28,9 @@ function dibujarObjetos() {
             
             dibujarGradilla();
             dibujarTubo();
+
             dibujarTextoAlPinchar();
+
             dibujarDescartador();
             dibujarJeringa();
 
@@ -125,19 +41,24 @@ function dibujarObjetos() {
             mostrarNombre();
             
         }
-        if (niveles[2] === 1){ // debe completar la etapa 
+        if (niveles[2] === 1){ // activa la etapa
+            //ctx.clearRect(0, 0, canvas.width, canvas.height);
             dibujarProcesarMuestra();
-            
         }
-        //dibujarCent();
-        dibujarManos();
+        if (niveles[3] === 1) {
+             dibujarCent();
+         }
+        
+        
     }
-
+    dibujarCent();
+    dibujarManos();
 }
 // Funciones Dibujar
 // ==================================================
-function dibujarCent(){
-    ctx.drawImage(imgCent, objetoCent.x , objetoCent.y, objetoCent.width, objetoCent.height);
+function dibujarCent(){ // dibuja los tubos y la centrifuga
+    centrifuga();
+
 }
 
 function dibujarNoUsables(){ // dibujo objetos que no se van a utilizar
@@ -206,7 +127,8 @@ function dibujarBrazo(){
     ctx.restore();
 }
 var congelarMano =  false;
-var congelar = { x: 0, y: 0 };
+var congelar = { x: 650, y: 350 };
+
 
 function dibujarManos() {
     ctx.save();
@@ -235,14 +157,16 @@ function dibujarJeringa() {
     if ((objetoJeringa.est === 0) ){
         ctx.drawImage(imgJeringa, objetoJeringa.x, objetoJeringa.y, objetoJeringa.width, objetoJeringa.height);
     }
-    if((objetoJeringa.est === 2) ){//2
+    if((objetoJeringa.est === 2)){
         ctx.drawImage(imgJeringa, coordenadasMouse.x - 4 , coordenadasMouse.y - 40, objetoJeringa.width, objetoJeringa.height);
                 //capturo ultima posicion del mouse
-        ctx.drawImage (imgManoIzq, coordenadasMouse.x - 40, coordenadasMouse.y +30, 55, 110 );
-        posCanuto.x = coordenadasMouse.x - 5;
-        posCanuto.y =   coordenadasMouse.y;
-        posManoI.x = coordenadasMouse.x - 40;
-        posManoI.y =  coordenadasMouse.y + 30;
+        
+        posCanuto.x = 649 - 5;
+        posCanuto.y =   349;
+        posManoI.x = 649 - 40;
+        posManoI.y =  349 + 30;
+
+
     }
     if ((objetoJeringa.est === 4)){
         ctx.drawImage(imgJeringa2, coordenadasMouse.x - 4 , coordenadasMouse.y - 40, objetoJeringa.width, objetoJeringa.height);
@@ -252,14 +176,14 @@ function dibujarJeringa() {
         ctx.drawImage(imgJeringa3, coordenadasMouse.x - 4 , coordenadasMouse.y - 40, objetoJeringa3.width, objetoJeringa3.height);
         
     }
-    
-    if (pinchado === true){//reproducir animacion
 
+    if (pinchado === 2){//reproducir animacion
         objetoJeringa.est = 3;
         //dibujo mano 2, canuto, jeringa con sangre en alfa
         dibujarExtraccion();
     }
     function dibujarExtraccion(){
+
         if ((cont < 500)){
             posManoI.y = posManoI.y +0.02;
             posManoI.x = posManoI.x - 0.01;
@@ -269,20 +193,24 @@ function dibujarJeringa() {
             alfa2 = alfa2 - 0.001;
             cont++;
             congelarMano = true;
+
             
         }else{
             borrarSinCanuto = true;
             objetoJeringa.est = 4;
-            pinchado =false;
+            pinchado = 0;
 
             //niveles[1] = 1; 
             continuarTrans = true;
             // nivel 2 completado
             //console.log(objetoJeringa.est);
             congelarMano = false;
+            coordenadasMouse.x = 649;
+            coordenadasMouse.y = 349;
         }
         
         if ((objetoJeringa.est === 3)){
+
             ctx.drawImage(imgManoIzq, posManoI.x, posManoI.y, 55, 110 );
             ctx.drawImage(imgCanuto, posCanuto.x, posCanuto.y -40 , 40, 90 );
 
@@ -315,7 +243,7 @@ function dibujarGoma(){
 }
 function dibujarCajaGuantes() {
     ctx.save();
-    ctx.drawImage(imgCajaGuantes, objetos[2].x, objetos[2].y, objetos[2].width, objetos[2].height);
+    ctx.drawImage(imgCajaGuantes, objetoCaja.x, objetoCaja.y, objetoCaja.width, objetoCaja.height);
     ctx.restore();
 }
 
@@ -324,18 +252,33 @@ function dibujarCajaGuantes() {
 // ==================================================
 function moverObjetos(){
     if ((objetoActual !== null)){
-       // if (objetoJeringa.est === 5 ){
-       //      objetoActual.x = objetoActual.x + dx;
-       //      objetoActual.y = objetoActual.y + dy;
-       //  }
+       
         if ((objetoActual.est  === 1) && (objetoActual.id === 'peladora')){
             objetoActual.x = objetoActual.x + dx;
             objetoActual.y = objetoActual.y + dy;
-        }
-        if ((objetoActual.id === 'goma')){
+            console.log(objetoActual.est);
+        }else{
+            if (objetoJeringa.est === 5 ){ // jla jeringa con sangre esta tomada por la mano
             objetoActual.x = objetoActual.x + dx;
             objetoActual.y = objetoActual.y + dy;
+            }else{
+                if (objetoActual.est != -99){
+                    objetoActual.x = objetoActual.x + dx;
+                    objetoActual.y = objetoActual.y + dy;
+                }
+                
+            }
         }
+
+        // if ((objetoActual.id === 'goma')){
+        //     objetoActual.x = objetoActual.x + dx;
+        //     objetoActual.y = objetoActual.y + dy;
+        // }
+        // if ((objetoActual.id === 't1') ||  ){
+        //     objetoActual.x = objetoActual.x + dx;
+        //     objetoActual.y = objetoActual.y + dy;
+        // }
+        
     }
 }
 // Detectos los clikcs en los objetos y el Contacto
@@ -363,13 +306,13 @@ function detectarClick(click){
     function pinchar(){
         if ((objetoGoma2.est) ){
             if (mascaraClick2(677 , 314, 5, 20, click.x + 30, click.y - 40, 0.0 )){
-                pinchado = true;
+                pinchado = 1;
             }
         }
     }
     function clickJeringa(){
 
-        if ((objetos[1].est === 1) ){
+        if (((objetos[1].est === 1)) && (objetoCaja.est === 1)){
             //console.log(objetos[2].est);
             ctx.save();
             ctx.globalAlpha = 0.0;
@@ -390,7 +333,7 @@ function detectarClick(click){
             ctx.globalAlpha = 0.0;
             ctx.beginPath();
             ctx.fillStyle = 'blue';
-            ctx.rect(objetos[2].x, objetos[2].y, objetos[2].width, objetos[2].height);
+            ctx.rect(objetoCaja.x, objetoCaja.y, objetoCaja.width, objetoCaja.height);
             ctx.fill();
             ctx.restore();
             
@@ -399,7 +342,7 @@ function detectarClick(click){
                     objetoManos.est = true;
                     //objetos[2].est = 1; habilita jeringa
                     objetos[0].est = 1; // habilita peladora
-                    objetos[2].est = 1; // cambio el estado de la caja
+                    objetoCaja.est = 1; // cambio el estado de la caja
                 }
         }
     }
@@ -429,11 +372,6 @@ function estadoJuego(){
 function agregarEventosMouse() {
     canvas.addEventListener("mousedown", function(event) {
         click = mousePosicion(canvas, event);
-        
-                congelar.x = click.x ; // para el dibujo de manos
-                congelar.y = click.y - 5;
-                
-
         var mousePos = mousePosicion(canvas, event);
         
         for (var i = 0; i < objetos.length; i++) { //recorro todos los objetos

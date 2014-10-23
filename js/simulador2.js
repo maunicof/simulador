@@ -30,6 +30,26 @@ function centrifuga(){
     //ctx.drawImage(imgCruz, objCruz.x , objCruz.y, objCruz.width, objCruz.height);
     tateti();
     verificarCentrifuga();
+    textoTiempoRevoluciones();
+
+    function textoTiempoRevoluciones(){
+        dibujarFondoTexto(50, 50, 900, 350, '#9254C4', 1 );
+        dibujarFondoTexto(50, 50, 900, 60, '#640AAA', 1 );
+    
+        dibujarTexto('Seleccione la Velocidad  y el tiempo que considere correcto.',80, 90, 'white', fuente, 0, 0, 0);
+        dibujarTexto('Revoluciones por minuto',100, 150, 'black', subtitulo, 0, 0, 0);
+        dibujarTexto('Tiempo',590, 150, 'black', subtitulo, 0, 0, 0);
+
+        dibujarTexto('1500 -2000 rpm',130, 190, 'black', tuboinc, 0, 0, 0);
+        dibujarTexto('4000 o 3500 rpm',130, 230, 'black', tuboinc, 0, 0, 0);
+        dibujarTexto('0, 0, 5, 1,0 rpm',130, 270, 'black', tuboinc, 0, 0, 0);
+        dibujarTexto('0,5 3,0 3,5',130, 310, 'black', tuboinc, 0, 0, 0);
+
+        dibujarTexto('10 - 15 minutos',620, 190, 'black', tuboinc, 0, 0, 0);
+        dibujarTexto('5 minutos',620, 230, 'black', tuboinc, 0, 0, 0);
+        dibujarTexto('20 a 30 minutos',620, 270, 'black', tuboinc, 0, 0, 0);
+
+    }
 
     function tateti(){
         for (var i = 0; i < agujeros.length; i++) {

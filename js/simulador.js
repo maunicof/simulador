@@ -51,16 +51,14 @@ function dibujarObjetos() {
         
         
     }
-    dibujarCent();
+    //dibujarCent();
     dibujarManos();
 }
 // Funciones Dibujar
 // ==================================================
 function dibujarCent(){ // dibuja los tubos y la centrifuga
     centrifuga();
-
 }
-
 function dibujarNoUsables(){ // dibujo objetos que no se van a utilizar
     ctx.drawImage(imgFrasco, objetoFrasco.x, objetoFrasco.y, objetoFrasco.width, objetoFrasco.height);
     ctx.drawImage(imgHisopo, objetoHisopo.x, objetoHisopo.y, objetoHisopo.width, objetoHisopo.height);
@@ -265,20 +263,11 @@ function moverObjetos(){
                 if (objetoActual.est != -99){
                     objetoActual.x = objetoActual.x + dx;
                     objetoActual.y = objetoActual.y + dy;
+                    console.log(objetoActual.est);
                 }
                 
             }
         }
-
-        // if ((objetoActual.id === 'goma')){
-        //     objetoActual.x = objetoActual.x + dx;
-        //     objetoActual.y = objetoActual.y + dy;
-        // }
-        // if ((objetoActual.id === 't1') ||  ){
-        //     objetoActual.x = objetoActual.x + dx;
-        //     objetoActual.y = objetoActual.y + dy;
-        // }
-        
     }
 }
 // Detectos los clikcs en los objetos y el Contacto
@@ -396,7 +385,7 @@ function agregarEventosMouse() {
                 coordenadasMouse.y = mouseMano.y - 5;
             }
 
-        if (objetoActual !== null) {
+        if ((objetoActual !== null) && (objetoActual.est != -99)) {
             var mousePos = mousePosicion(canvas, event);
             mouseNew.x = mousePos.x;
             mouseNew.y = mousePos.y;
@@ -440,7 +429,7 @@ function mapa(){
             if ( niveles[i] > 0){
                 vet[i].style.color = 'blue';
                 //recorrido[i].style.font = 'bold';
-                console.log( vet[i].id);
+                //console.log( vet[i].id);
              }
          }
 }

@@ -63,7 +63,6 @@ var textoNivel1Sangre = [
     { est: '6 a 10cm3', correcta: false}
 ];
 
-var objCruz = { id: 'cruz',    est: 0, x: 270, y: 475, width: 80,  height: 60 };
 
 var objetos = [
     { id: 'peladora',    est: 0, x: 200, y: 480, width: 70,  height: 90 },
@@ -75,6 +74,15 @@ var objetos = [
     { id: 4, agu: -1, est: 0, x: 575, y: 560, width: 22, height: 80 },
     { id: 5, agu: -1, est: 0, x: 600, y: 560, width: 22, height: 80 }
 ];
+var objetoTuboTapa =       { id: 'tubo',est: 0, x: 545, y: 560, width: 15, height: 10 };
+
+var objetoTS =       { id: 'Suero', agu: -1, est: 0, x: 355, y: 420, width: 18, height: 90 };
+
+
+var objetoPip =          { id: 'pip',est: 0, x: 345, y: 200, width: 30, height: 150 };
+var objetoPS =     { id: 'ps',est: 0, x: 345, y: 100, width: 30, height: 150 };
+
+
 
 var agujeros = [ // agujeros de contaco con la centrifuga
     { id: 0,est: 0, x: 295, y: 490, width: 3, height: 2 },
@@ -99,12 +107,16 @@ var objetoGradilla =      { id: 'gradilla',est: 0, x: 450, y: 550, width: 140, h
 var objetoTacho =         { id: 'tacho',est: 0, x: 40, y: 350, width: 140, height: 170 };
 var objetoDescartador =   { id: 'descartador',est: false, x: 720, y: 480, width: 100, height: 110 };
 
-var objetoTubo =          { id: 'tubo',est: 0, x: 465, y: 560, width: 15, height: 80 };
+var objetoTubo =           { id: 'tubo',est: 0, x: 465, y: 560, width: 15, height: 80 };
 var objetoTubo2 =          { id: 'tubo',est: 0, x: 495, y: 560, width: 15, height: 80 };
 var objetoTubo3 =          { id: 'tubo',est: 0, x: 520, y: 560, width: 15, height: 80 };
 var objetoTubo4 =          { id: 'tubo',est: 0, x: 545, y: 560, width: 15, height: 80 };
 
+
+
+
 var objetoTuboSangre =    { id: 'tubo',est: 0, x: 465, y: 560, width: 15, height: 80 };
+
 var objetoJeringa3 =      { id: 'jeringa' , est: 0, x: 300, y: 480, width: 40,  height: 90 };
 var objetoCurita =      { id: 'curita' , est: 0, x: 678, y: 325, width: 23,  height: 10 };
 
@@ -113,6 +125,7 @@ var objetoHisopo =      { id: 'hisopo' , est: 0, x: 658, y: 550, width: 10,  hei
 var objetoFrasco =      { id: 'frasco' , est: 0, x: 858, y: 595, width: 40,  height: 40 };
 
 var objetoCent =      { id: 'frasco' , est: 0, x: 208, y: 300, width: 200,  height: 380 };
+var objetoCentCerrada =      { id: 'frasco' , est: 0, x: 208, y: 445, width: 200,  height: 230 };
 
 var texto01n2 =      { est: 0, x: 80, y: 80, width: 840,  height: 42 };
 var texto02n2 =      { est: 0, x: 80, y: 170, width: 790,  height: 210 };
@@ -141,8 +154,9 @@ var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
 var imgJeringa,imgGuantes, imgGoma, imgCajaGuantes, imgJeringaSangre, imgCanuto, imgJeringaSinCanuto, imgManoIzq;
 var imgHisopo, imgVidrio, imgFrasco, imgDescartador, imgTacho, imgGradilla, imgTubo, imgTuboSangre, imgCurita;
 var imgDescartador, imgHand2, imgCent;
-var img01n2, img02n2, imgCruz;
+var img01n2, img02n2;
 var imgT1, imgT2, imgT3, imgT4;
+var imgTuboTapa, imgCentCerrada, imgPip, imgPS, imgts;
 
 var imagenes = ['img/etapa1/brazo.png','img/etapa1/cajaGuantes.png',
 'img/etapa1/goma.png', 'img/etapa1/sultan2.png','img/etapa1/fondo.png','img/etapa1/hand2.png',
@@ -152,7 +166,8 @@ var imagenes = ['img/etapa1/brazo.png','img/etapa1/cajaGuantes.png',
 'img/etapa1/tacho.png', 'img/etapa1/tuboSangre.png', 'img/etapa1/curita.png',
 'img/etapa1/hisopo.png', 'img/etapa1/frasco.png', 'img/etapa1/vidrio.png',  'img/etapa1/centrifuga.png',
 'img/etapa1/txt/01n2.png', 'img/etapa1/txt/02n2.png', 'img/etapa1/t1.png', 'img/etapa1/t2.png',
-'img/etapa1/t3.png', 'img/etapa1/t4.png', 'img/etapa1/t5.png', 'img/etapa1/t6.png', 'img/etapa1/cruz.png',
+'img/etapa1/t3.png', 'img/etapa1/t4.png', 'img/etapa1/t5.png', 'img/etapa1/t6.png', 'img/etapa1/pip.png', 'img/etapa1/pipSuero.png',
+'img/etapa1/tuboTapa.png', 'img/etapa1/centrifugaCerrada.png', 'img/etapa1/ts.png'
 ];
 
 //Funciones de carga de imagenes
@@ -214,8 +229,10 @@ function progresoCarga() {
         imgVidrio = new Image();
         imgVidrio.src = 'img/etapa1/vidrio.png';
 
-        imgCruz = new Image();
-        imgCruz.src = 'img/etapa1/cruz.png';
+        imgTuboTapa = new Image();
+        imgTuboTapa.src = 'img/etapa1/tuboTapa.png';
+        imgCentCerrada = new Image();
+        imgCentCerrada.src = 'img/etapa1/centrifugaCerrada.png';
 
         imgTubo = new Image();
         imgTubo.src = 'img/etapa1/tubo.png';
@@ -256,5 +273,12 @@ function progresoCarga() {
         imgT5.src = 'img/etapa1/t5.png';
         imgT6 = new Image();
         imgT6.src = 'img/etapa1/t6.png';
+
+        imgPip = new Image();
+        imgPip.src = 'img/etapa1/pip.png';
+        imgPS = new Image();
+        imgPS.src = 'img/etapa1/pipSuero.png';
+        imgts = new Image();
+        imgts.src = 'img/etapa1/ts.png';
     }
 }

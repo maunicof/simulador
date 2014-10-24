@@ -1,5 +1,4 @@
-/*Mostrar Nombre del objeto al pasar el mouse
-===============================*/
+
 var contM = [];
 
 var time = 100;
@@ -23,14 +22,39 @@ var verificacionP = false;
 var verificacionS = false;
 var verificacionSemiFinal = false;
 
+var rpm = [];
+var tiempoC = [];
+var mostrarTextoRPM = false;
+var verificacionSuperFinal = -1;
+var contadorFinal = 0;
+var mostrarResultadoFinal = false;
+var contPP = 0;
+var contP = 0;
+
 
 function centrifuga(){
-    ctx.drawImage(imgCent, objetoCent.x , objetoCent.y, objetoCent.width, objetoCent.height);
-    tubitos();
-    //ctx.drawImage(imgCruz, objCruz.x , objCruz.y, objCruz.width, objCruz.height);
-    tateti();
-    verificarCentrifuga();
-    textoTiempoRevoluciones();
+    if (verificacionSuperFinal === -1) {
+        ctx.drawImage(imgCent, objetoCent.x , objetoCent.y, objetoCent.width, objetoCent.height);
+    }else{
+        ctx.drawImage(imgCentCerrada, objetoCentCerrada.x , objetoCentCerrada.y, objetoCentCerrada.width, objetoCentCerrada.height);
+    }
+    if (verificacionSuperFinal === -1) {
+        tubitos();
+        //ctx.drawImage(imgCruz, objCruz.x , objCruz.y, objCruz.width, objCruz.height);
+        tateti();
+        verificarCentrifuga();
+        botonCentrifugar();
+        
+        if (mostrarTextoRPM ) {
+            textoTiempoRevoluciones();
+        }
+    }
+
+    if(mostrarResultadoFinal){
+        verificacionFinal();
+    }
+
+    
 
     function textoTiempoRevoluciones(){
         dibujarFondoTexto(50, 50, 900, 350, '#9254C4', 1 );
@@ -39,6 +63,8 @@ function centrifuga(){
         dibujarTexto('Seleccione la Velocidad  y el tiempo que considere correcto.',80, 90, 'white', fuente, 0, 0, 0);
         dibujarTexto('Revoluciones por minuto',100, 150, 'black', subtitulo, 0, 0, 0);
         dibujarTexto('Tiempo',590, 150, 'black', subtitulo, 0, 0, 0);
+        dibujarTexto('Centrifugar',750, 360, 'white', fuente, 3, 3, 4);
+        dibujarTexto('Volver',670, 360, 'white', fuente, 3, 3, 4);
 
         dibujarTexto('1500 -2000 rpm',130, 190, 'black', tuboinc, 0, 0, 0);
         dibujarTexto('4000 o 3500 rpm',130, 230, 'black', tuboinc, 0, 0, 0);
@@ -48,12 +74,201 @@ function centrifuga(){
         dibujarTexto('10 - 15 minutos',620, 190, 'black', tuboinc, 0, 0, 0);
         dibujarTexto('5 minutos',620, 230, 'black', tuboinc, 0, 0, 0);
         dibujarTexto('20 a 30 minutos',620, 270, 'black', tuboinc, 0, 0, 0);
+        
+        mascarasRPM();
+
+        if (mascaraClick(665, 340, 60, 30, 0.0)){
+            mostrarTextoRPM = false;
+        }
+        if (mascaraClick(750, 340, 100, 30, 0.0)){
+            mostrarTextoRPM = false;
+            mostrarResultadoFinal = true;
+            mostrarTextoRPM = false;
+
+        }
+    }
+
+
+    function verificacionFinal(){
+        if (((rpm[5]) && (tiempoC[5])) && (verificacionSemiFinal)){
+            verificacionSuperFinal = 1;
+            
+        }else{
+            verificacionSuperFinal = 0;
+        }
+        if (contadorFinal < 500) {
+            contadorFinal++;
+        }
+
+        if (contadorFinal >450) { // espero que centrifugue y muestro el resultado
+            if (verificacionSuperFinal === 1){
+                dibujarFondoTexto(50, 50, 900, 550, '#9254C4', 1 );
+                dibujarFondoTexto(50, 50, 900, 60, '#640AAA', 1 );
+            
+                dibujarTexto('Fin de Procesamiento',80, 90, 'white', fuente, 0, 0, 0);
+                dibujarTexto('El resultado es correcto',100, 150, 'black', subtitulo, 0, 0, 0);
+                dibujarTexto('Continuar',670, 360, 'white', fuente, 3, 3, 4);
+                animarPipeta();
+
+                if (mascaraClick(675, 340, 90, 30, 0.0)){
+                    niveles[3] = 999;
+                    niveles[4] = 1;
+                    console.log(niveles[3]);
+                }
+
+            }
+            if (verificacionSuperFinal === 0){
+                dibujarFondoTexto(50, 50, 900, 350, '#9254C4', 1 );
+                dibujarFondoTexto(50, 50, 900, 60, '#640AAA', 1 );
+            
+                dibujarTexto('Fin de Procesamiento',80, 90, 'white', fuente, 0, 0, 0);
+                dibujarTexto('El resultado es incorrecto.',100, 150, 'black', subtitulo, 0, 0, 0);
+                dibujarTexto('Volver',670, 360, 'white', fuente, 3, 3, 4);
+
+                if (mascaraClick(665, 340, 60, 30, 0.0)){
+                    resetearCentrifuga();
+                }
+
+            }
+        }
+    }
+    function animarPipeta(){
+        
+            if (contP === 101) {
+                ctx.drawImage(imgPS, objetoPS.x ,  objetoPip.y+contP, objetoPS.width, objetoPS.height);
+            }else{
+                ctx.drawImage(imgPip, objetoPip.x , objetoPip.y+contP, objetoPip.width, objetoPip.height);
+                ctx.drawImage(imgts, objetoTS.x , objetoTS.y, objetoTS.width, objetoTS.height);
+            }
+            
+            if (contPP === 60) {
+                if ((contP < 101)){
+                    contP = contP + 0.5;
+                }
+            }
+
+            if (contPP < 60) {
+                contPP = contPP + 0.5;
+            }
+    }
+    function resetearCentrifuga(){
+        var asd = 0;
+        for (var i = 2; i < objetos.length; i++) {
+            objetos[i].est=0;
+            objetos[i].x = 465 + asd;
+            objetos[i].y = 560;
+            asd = asd +30;
+        }
+        for (var t = 0; t < agujeros.length; t++) {
+            agujeros[t].est = 0;
+        }
+
+        contM = [];
+
+        time = 100;
+        mostrarNom = false;
+        seleccion = [];
+        pri = [ // guardo el agujero y el tubo principales
+                    {a: -1, t: -1},
+                    {a: -1, t: -1},
+                    {a: -1, t: -1},
+                    {a: -1, t: -1}
+        ];
+        sec = [ // guardo el agujero y el tubo secundarios
+                    {a: -1, t: -1},
+                    {a: -1, t: -1},
+                    {a: -1, t: -1},
+                    {a: -1, t: -1}
+        ];
+         diag1 = [];
+        diag2 = [];
+        verificacionP = false;
+        verificacionS = false;
+        verificacionSemiFinal = false;
+
+        rpm = [];
+         tiempoC = [];
+         mostrarTextoRPM = false;
+         verificacionSuperFinal = -1;
+         contadorFinal = 0;
+         mostrarResultadoFinal = false;
+    }
+    function mascarasRPM(){
+        if (mascaraClick(125, 170, 100, 30, 0.0)){
+            rpm[0] = true;
+        }
+        if (mascaraClick(125, 210, 100, 30, 0.0)){
+            rpm[1] = true;
+            rpm[0] = false;
+        }
+        if (mascaraClick(125, 250, 100, 30, 0.0)){
+            rpm[2] = true;
+            rpm[1] = false;
+        }
+        if (mascaraClick(125, 290, 100, 30, 0.0)){
+            rpm[3] = true;
+            rpm[2] = false;
+        }
+
+        if (mascaraClick(625, 170, 100, 30, 0.0)){
+            tiempoC[0] = true;
+        }
+        if (mascaraClick(625, 210, 100, 30, 0.0)){
+            tiempoC[1] = true;
+            tiempoC[0] = false;
+        }
+        if (mascaraClick(625, 250, 100, 30, 0.0)){
+            tiempoC[2] = true;
+            tiempoC[1] = false;
+        }
+
+        if (tiempoC[0]) {
+            correcto(610, 180);
+            tiempoC[5] = true;
+        }else{
+            if (tiempoC[1]) {
+            correcto(610, 220);
+            tiempoC[5] = false;
+            }else{
+                if (tiempoC[2]) {
+                    correcto(610, 260);
+                    tiempoC[5] = false;
+                }
+            }
+        }
+
+        if (rpm[0]) {
+            correcto(110, 180);
+            rpm[5] = true;
+        }else{
+
+            if (rpm[1]) {
+            correcto(110, 220);
+            rpm[5] = false;
+            }else{
+                if (rpm[2]) {
+                    correcto(110, 260);
+                    rpm[5] = false;
+                }else{
+                     if (rpm[3]) {
+                        correcto(110, 300);
+                        rpm[5] = false;
+                    }
+                }
+            }
+        }
+
+    }
+    function botonCentrifugar(){
+        if (mascaraClick(255, 596, 100, 30, 0.0)){
+            mostrarTextoRPM = true;
+        }
 
     }
 
     function tateti(){
         for (var i = 0; i < agujeros.length; i++) {
-            cuadrado(agujeros[i]);
+            cuadrado(agujeros[i], 0.0);
             for (var j = 2; j < objetos.length; j++) {
                 if (agujeros[i].est != -99){
                     if (hit2(agujeros[i], objetos[j])){
@@ -158,14 +373,36 @@ function centrifuga(){
         }
     }
     function tubitos(){
-        ctx.drawImage(imgT1, objetos[2].x , objetos[2].y, objetos[2].width, objetos[2].height);
-        
-        ctx.drawImage(imgT2, objetos[3].x, objetos[3].y, objetos[3].width, objetos[3].height);
-        ctx.drawImage(imgT3, objetos[4].x, objetos[4].y, objetos[4].width, objetos[4].height);
-        ctx.drawImage(imgT4, objetos[5].x , objetos[5].y, objetos[5].width, objetos[5].height);
-        ctx.drawImage(imgT3, objetos[6].x, objetos[6].y, objetos[6].width, objetos[6].height);
-        ctx.drawImage(imgT4, objetos[7].x , objetos[7].y, objetos[7].width, objetos[7].height);
-        
+        if (objetos[2].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[2].x , objetos[2].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT1, objetos[2].x , objetos[2].y, objetos[2].width, objetos[2].height);
+        }
+        if (objetos[3].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[3].x , objetos[3].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT2, objetos[3].x, objetos[3].y, objetos[3].width, objetos[3].height);
+        }
+        if (objetos[4].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[4].x , objetos[4].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT3, objetos[4].x, objetos[4].y, objetos[4].width, objetos[4].height);
+        }
+        if (objetos[5].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[5].x , objetos[5].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT4, objetos[5].x , objetos[5].y, objetos[5].width, objetos[5].height);
+        }
+        if (objetos[6].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[6].x , objetos[6].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT5, objetos[6].x, objetos[6].y, objetos[6].width, objetos[6].height);
+        }
+        if (objetos[7].est === -99) {
+            ctx.drawImage(imgTuboTapa, objetos[7].x , objetos[7].y, objetoTuboTapa.width, objetoTuboTapa.height);
+        }else{
+            ctx.drawImage(imgT6, objetos[7].x , objetos[7].y, objetos[7].width, objetos[7].height);
+        }
     }
     function verificarCentrifuga(){ // tubos 0 y 1 son correctos y deben estar enfrentados 
         
@@ -210,9 +447,10 @@ function centrifuga(){
             verificacionSemiFinal = false;
         }
         
-        console.log(verificacionSemiFinal);
+        //console.log(verificacionSemiFinal);
         // console.log(verificacionS);
     }
+    
 }
 /* Funciones para detectar contacto y Clisks
 =============================*/
@@ -255,8 +493,9 @@ function hit2(a , b){
     }
     return hits;
 }
-function cuadrado(objeto){
+function cuadrado(objeto, a){
     ctx.save();
+    ctx.globalAlpha = a;
     ctx.beginPath();
     ctx.fillStyle = 'blue';
     ctx.rect(objeto.x, objeto.y, objeto.width, objeto.height);
@@ -352,7 +591,7 @@ function mostrarNombre(){
     }else{
         contM[1] = 0;
     }
-//--------------------------------------------------
+
     if ( mascaraClickObjeto(objetos[1], 0) ){
         if (contM[2] < time){
              dibujarTexto('Cinta', objetos[1].x , objetos[1].y +60, 'white', fuente, 4, 4, 5);
@@ -361,7 +600,7 @@ function mostrarNombre(){
     }else{
         contM[2] = 0;
     }
-//--------------------------------------------------
+
 
     if ( mascaraClickObjeto(objetoCaja,0)) {
         if (contM[3] < time){
@@ -371,7 +610,7 @@ function mostrarNombre(){
     }else{
         contM[3] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto(objetoJeringa, 0)){
         if (contM[4] < time){
              dibujarTexto('Jeringa', objetoJeringa.x - 20, objetoJeringa.y +100, 'white', fuente, 4, 4, 5);
@@ -380,7 +619,7 @@ function mostrarNombre(){
     }else{
         contM[4] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto(objetoGradilla, 0)){
         if (contM[5] < time){
              dibujarTexto('Gradilla', objetoGradilla.x - 80, objetoGradilla.y +100, 'white', fuente, 4, 4, 5);
@@ -389,7 +628,7 @@ function mostrarNombre(){
     }else{
         contM[5] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto(objetoTacho, 0)){
         if (contM[6] < time){
              dibujarTexto('Residuos', objetoTacho.x - 20, objetoTacho.y +100, 'white', fuente, 4, 4, 5);
@@ -398,7 +637,7 @@ function mostrarNombre(){
     }else{
         contM[6] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto(objetoDescartador, 0)){
         if (contM[7] < time){
              dibujarTexto('Descartador', objetoDescartador.x - 20, objetoDescartador.y +120, 'white', fuente, 4, 4, 5);
@@ -407,7 +646,7 @@ function mostrarNombre(){
     }else{
         contM[7] = 0;
     }
-//--------------------------------------------------
+
 
     if (hit(objetoTubo, coordenadasMouse )){
         if (contM[8] < time){
@@ -418,7 +657,7 @@ function mostrarNombre(){
         contM[8] = 0;
     }
 
-//--------------------------------------------------
+
     if (mascaraClickObjeto(objetoVidrio, 0)){
         if (contM[9] < time){
              dibujarTexto( 'Vidrio', objetoVidrio.x -55 , objetoVidrio.y + 35, 'white', fuente, 4, 4, 5);
@@ -427,7 +666,7 @@ function mostrarNombre(){
     }else{
         contM[9] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto( objetoHisopo, 0)){
         if (contM[10] < time){
              dibujarTexto( 'Hisopo', objetoHisopo.x - 50, objetoHisopo.y - 10, 'white', fuente, 4, 4, 5);
@@ -436,7 +675,7 @@ function mostrarNombre(){
     }else{
         contM[10] = 0;
     }
-//--------------------------------------------------
+
     if (hit( objetoTubo2, coordenadasMouse)){
         if (contM[11] < time){
              dibujarTexto('Citrato', objetoTubo2.x - 20, objetoTubo2.y , 'white', fuente, 4, 4, 5);
@@ -445,7 +684,7 @@ function mostrarNombre(){
     }else{
         contM[11] = 0;
     }
-//--------------------------------------------------
+
     if (hit( objetoTubo3, coordenadasMouse)){
         if (contM[12] < time){
              dibujarTexto('EDTA', objetoTubo3.x -10, objetoTubo3.y, 'white', fuente, 4, 4, 5);
@@ -455,7 +694,7 @@ function mostrarNombre(){
         contM[12] = 0;
     }
     
-//--------------------------------------------------
+
     if (hit( objetoTubo4, coordenadasMouse)){
         if (contM[13] < time){
              dibujarTexto('Recientemente enjuagado', objetoTubo4.x - 0, objetoTubo4.y, 'white', fuente, 4, 4, 5);
@@ -464,7 +703,7 @@ function mostrarNombre(){
     }else{
         contM[13] = 0;
     }
-//--------------------------------------------------
+
     if (mascaraClickObjeto( objetoFrasco, 0)){
         if (contM[14] < time){
              dibujarTexto('Frasco', objetoFrasco.x - 50, objetoFrasco.y + 25, 'white', fuente, 4, 4, 5);
@@ -473,11 +712,8 @@ function mostrarNombre(){
     }else{
         contM[14] = 0;
     }
-//--------------------------------------------------
+
 }
-
-
-
 // Placa texto
 // ==================================================
 function placaTexto(titulo, t1, t1x, t1y, t2, t2x, t2y, t3, t3x, t3y, t4, t4x, t4y, t5, t5x,t5y ){
@@ -631,8 +867,6 @@ function dibujarProcesarMuestra(){
         }
     }
 }
-
-
 /* Textos viejos
 ===============================================*/
 
@@ -696,7 +930,7 @@ function dibujarTextoAlPinchar(){ // Al pinchar la pata muestra la cantidad de s
             correcto(135, 240);
             dibujarTexto('Extraer',560, 355, 'white', fuente, 4, 4, 4);
         }
-        // if (mascaraClick(550, 335,110,30,0.5)){
+        // if (mascaraClick(550, 335,110,30,0.0)){
         //     pinchado = 2;
         //     console.log(pinchado);
         // }

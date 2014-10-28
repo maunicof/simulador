@@ -146,7 +146,7 @@
             <div class="modal-dialog modal-xs">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
+                        <button type="button" class="close" data-dismiss="modal" >
                             <span aria-hidden="true">×</span>
                             <span class="sr-only">Close</span>
                         </button>
@@ -190,7 +190,7 @@
             <div class="modal-dialog modal-xs">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
+                        <button type="button" class="close" data-dismiss="modal" id="pepe">
                             <span aria-hidden="true">×</span>
                             <span class="sr-only">Close</span>
                         </button>
@@ -219,10 +219,144 @@
             </div>
         </div>
     </div>
-
-
-
     <!-- End Modal================= -->
+
+<!-- Modales de Premisas
+===========================================->
+    
+    <!- Acondicionar la Muestra 
+    ===========================================-->
+    <div id="acondicionar" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        
+                        <h4 class="modal-title" id="mySmallModalLabel">
+                            Mi nombre es Osis.</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img src="img/osis.png" width="140px" alt="" style="margin-left:35px;">
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="">Teniendo separado el suero para su envió. Debes elegir y/o arrastrar los elementos a usar en forma ordenada y así podrás acondicionar la muestra en la caja térmica, según requisitos de acuerdo al Protocolo de muestra. De esta manera podrás remitir dicho material al laboratorio.</p>
+                            </div>
+                        </div>
+                        <div class="" style="text-align:center;">
+                        </div>
+                        <button id="d-boton" type="button" style="margin-left:740px;"  data-dismiss="modal">
+                            <span aria-hidden="true">Continuar</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Diagnostico Presuntivo
+    ===========================================-->
+    <div id="diagnostico1" data-backdrop="static" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        
+                        <h4 class="modal-title" id="mySmallModalLabel">
+                            Diagnostico</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img src="img/osis.png" width="140px" alt="" style="margin-left:35px;">
+                            </div>
+                            <div class="col-sm-9">
+                                <div><p> De acuerdo al caso clínico, que se presentó en el día de la fecha y con los siguientes
+                                datos recolectados en el examen clínico tu diagnóstico presuntivo es:</p></div>
+                                <form role="form">
+                                    <div class="radio">
+                                      <label><input id="a1" type="radio" name="optradio">Moquillo </label>
+                                    </div>
+                                    <div class="radio">
+                                      <label><input id="a2" type="radio" name="optradio">Neosporosis</label>
+                                    </div>
+                                    <div class="radio">
+                                      <label><input id="a3" type="radio" name="optradio">Epilepsia</label>
+                                    </div>
+                                    <div class="radio">
+                                      <label><input id="a4" type="radio" name="optradio">Lesión traumática en región lumbosacra</label>
+                                    </div>
+                                </form>
+                            </div>
+                    </div>
+                    <div class="" style="text-align:center;">
+                                  <div id='aerror' style="display: none;" class="alert alert-danger alert-dismissable" >
+                                  <strong>Error!</strong> 
+                                  </div>
+                                  <div id='aok' style="display: none;" class="alert alert-success alert-dismissable" >
+                                  <strong>Correcto</strong> 
+                                  </div>
+
+                            </div>
+                    <div>
+                        <button id="a-boton" type="button" style="display: none; margin-left:740px;"  data-dismiss="modal">
+                            <span aria-hidden="true">Continuar</span>
+                        </button>
+                    </div>
+                        </div>
+                        
+                        
+                    
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagnostico2
+    ======================================-->
+    <div id="diagnostico2" data-backdrop="static" class="modal fade " tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xs">
+            <div class="modal-dialog modal-xs">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        
+                        <h4 class="modal-title" id="mySmallModalLabel">
+                            Diagnostico</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <img src="img/osis.png" width="140px" alt="" style="margin-left:35px;">
+                            </div>
+                            <div class="col-sm-9">
+                                <div><p>
+                                    Después de haber determinado el  diagnóstico  presuntivo del caso, se procede a la
+                                    toma  del material biológico. Debes siempre tener en cuenta las  Normas de
+                                     bioseguridad y limpieza para  llevar a cabo La práctica.
+                                    Para poder realizar esta tarea, tienes que  trabajar  de la siguiente manera:
+                                    debes elegir y/o arrastrar los elementos que correspondan  para poder cumplir con 
+                                    el objetivo buscado, que es llegar al diagnóstico definitivo.
+                            </p></div>
+                            </div>
+                        </div>
+                        <div class="" style="text-align:center;">
+                        </div>
+                        <button id="a-boton2" type="button" class="Continuar" data-dismiss="modal" style="margin-left:740px;">
+                            <span >Continuar</span>
+                        </button>
+                    </div>
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
 
     <!-- Bootstrap core JavaScript
                     ================================================== -->
@@ -230,12 +364,12 @@
     <script type="text/javascript">
     window.jQuery || document.write('<script src="js/vendor/jquery-1.11.0.min.js"><\/script>')
     </script>
-
     <script src="js/bootstrap.min.js"></script>
     <script src="js/preloadjs-0.1.0.min.js"></script>
     <script src="js/variables.js"></script>
     <script src="js/simulador.js"></script>
     <script src="js/simulador2.js"></script>
+    <script src="js/modales.js"></script>
     
     <!-- <script src="js/simulador1.js"></script> 
     <<script src="js/easeljs-0.7.1.min.js"></script>

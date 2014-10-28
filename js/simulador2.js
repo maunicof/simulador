@@ -1,35 +1,26 @@
 
-var contM = [];
 
-var time = 100;
-var mostrarNom = false;
-var seleccion = [];
-var pri = [ // guardo el agujero y el tubo principales
-            {a: -1, t: -1},
-            {a: -1, t: -1},
-            {a: -1, t: -1},
-            {a: -1, t: -1}
-];
-var sec = [ // guardo el agujero y el tubo secundarios
-            {a: -1, t: -1},
-            {a: -1, t: -1},
-            {a: -1, t: -1},
-            {a: -1, t: -1}
-];
-var diag1 = [];
-var diag2 = [];
-var verificacionP = false;
-var verificacionS = false;
-var verificacionSemiFinal = false;
+function nivel4(){ // acondicionar la muestra
+   
+    // if (d_modal1) {
+    //      $('#acondicionar').modal('show');
+    //      d_modal1 = false;
+    // }
+    dibujarHela1();
 
-var rpm = [];
-var tiempoC = [];
-var mostrarTextoRPM = false;
-var verificacionSuperFinal = -1;
-var contadorFinal = 0;
-var mostrarResultadoFinal = false;
-var contPP = 0;
-var contP = 0;
+
+
+    function dibujarHela1(){
+       ctx.drawImage(imgHela1, objetoHela1.x , objetoHela1.y, objetoHela1.width, objetoHela1.height);
+       ctx.drawImage(imgBolsa2, objetoBolsa2.x , objetoBolsa2.y, objetoBolsa2.width, objetoBolsa2.height);
+       
+       ctx.drawImage(imgEpp, objetos[9].x , objetos[9].y, objetos[9].width, objetos[9].height);
+       ctx.drawImage(imgRef, objetos[8].x , objetos[8].y, objetos[8].width, objetos[8].height);
+       ctx.drawImage(imgBolsa1, objetos[10].x , objetos[10].y, objetos[10].width, objetos[10].height);
+       ctx.drawImage(imgNev1, objetoNev1.x , objetoNev1.y, objetoNev1.width, objetoNev1.height);
+
+    }
+}
 
 
 function centrifuga(){
@@ -110,7 +101,7 @@ function centrifuga(){
                 dibujarTexto('Continuar',670, 360, 'white', fuente, 3, 3, 4);
                 animarPipeta();
 
-                if (mascaraClick(675, 340, 90, 30, 0.0)){
+                if (mascaraClick(675, 340, 90, 30, 0.5)){
                     niveles[3] = 999;
                     niveles[4] = 1;
                     console.log(niveles[3]);
@@ -756,32 +747,6 @@ function dibujarProcesarMuestra(){
     dibujarFondoTexto(50, 50, 900, 550, '#9254C4', 1 );
     dibujarFondoTexto(50, 50, 900, 100, '#640AAA', 1 );
     
-    // dibujarTexto(textoNivel3[4].txt,80, 90, 'white', fuente, 0, 0, 0);
-    // dibujarTexto(textoNivel3[5].txt,80, 110, 'white', fuente, 0, 0, 0);
-    // dibujarTexto(textoNivel3[1].txt,80, 180, 'black', subtitulo, 0, 0, 0);
-    // dibujarTexto(textoNivel3[1].a,150, 220, 'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[1].b,150, 260, 'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[1].c,150, 300, 'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[1].d,150, 340, 'black', tuboinc, 0, 0, 0);
-    
-    // dibujarTexto(textoNivel3[1].e,150, 380, 'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[2].txt,380, 180, 'black', subtitulo, 0, 0, 0);
-    // dibujarTexto(textoNivel3[2].a,380, 220,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[2].b,380, 260,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[2].c,380, 300,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[3].txt,760, 180, 'black', subtitulo, 0, 0, 0);
-    // dibujarTexto(textoNivel3[3].a,760, 220,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[3].b,760, 260,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[3].c,760, 300,   'black', tuboinc, 0, 0, 0);
-    // dibujarTexto(textoNivel3[3].d,760, 340,   'black', tuboinc, 0, 0, 0);
-        
-    // if ((textoNivel3[6].c1) && (textoNivel3[6].c2) && (textoNivel3[6].c3)){
-    //     dibujarTexto('Continuar',760, 550, 'white', tuboinc, 4, 4, 5);
-
-    //     if(mascaraClick(760, 530, 90, 30, 0.0)){
-    //         niveles[2] = 2; // termino el nivel 2, no se muestra el texto
-    //     }
-    // }
     ctx.drawImage(img01n2, texto01n2.x , texto01n2.y, texto01n2.width, texto01n2.height);
     ctx.drawImage(img02n2, texto02n2.x , texto02n2.y, texto02n2.width, texto02n2.height);
     
@@ -938,7 +903,6 @@ function dibujarTextoAlPinchar(){ // Al pinchar la pata muestra la cantidad de s
             // textoNivel1Sangre[0].mostrar = false;
             incorrecto(130, 300);
         }
-        
     }
 }
 
@@ -949,115 +913,105 @@ var texto1y2 = 0;
 function nivel1(){ //multiple choise Diagnostico
         
     if (niveles[0] === 0){
-        if (texto1y2 === 0) {
-            dibujarFondoTexto(100,80,800,350,violeta2, 1 );
-            dibujarFondoTexto(100,80,800, 80,violeta1, 1 );
-            ctx.save();
-            ctx.fillStyle = 'white';
-            ctx.font = '13pt sans-serif';
-            ctx.fillText('De acuerdo al caso clínico, que se presentó en el día de la fecha y con los siguientes', 120,110);
-            ctx.fillText(' datos recolectados en el examen clínico tu diagnóstico presuntivo es: ', 120,130);
-            ctx.restore();
+        if (mod_diagnostico1) {
+            //$('#diagnostico1').modal('show');
+            mod_diagnostico1 = false;
 
-            ctx.save();
-            ctx.font = '15pt sans-serif';
-            ctx.fillText(textoNivel1[0].est, 150,200);
-            ctx.fillText(textoNivel1[1].est, 150,250);
-            ctx.fillText(textoNivel1[2].est, 150,300);
-            ctx.fillText(textoNivel1[3].est, 150,350);
-            ctx.restore();
-            mascarasN1();
+            continuarNivel2 = 0; // solo para probar sin ejecutar modal
+            niveles[0] = 1;// solo para probar sin ejecutar modal
         }
-        if (texto1y2 === 1) {
-            dibujarTextoComenzarExtraccion();
-        }
+        // if (mod_diagnostico2) {
+        //     //dibujarTextoComenzarExtraccion();
+        //     $('#diagnostico2').modal('show');
+        //     $('#diagnostico1').modal('hide');
+        // }
 
 
         
     }
     /* clicks
         =====================================*/
-    function mascarasN1(){
-            if (mascaraClick(150,270,130,45,0.0)){// correcto Continua
-            ctx.save();
-            ctx.shadowColor = "black";
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 3;
-            ctx.shadowBlur = 7;
-            ctx.beginPath();
-            ctx.fillStyle = '#33CC00';
-            ctx.arc(135, 290, 7, 0, 2 * Math.PI, false);
-            ctx.fill();
-            ctx.closePath();
-            ctx.restore();
-            continuarNivel2 = 1;
-        }
-        if ( (continuarNivel2 === 1) ){// Boton continuar nivel1 true
-            ctx.save();
-            ctx.shadowColor = "black";
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 3;
-            ctx.shadowBlur = 7;
-            ctx.fillStyle = 'white';
-            ctx.font = 'bold 16pt sans-serif';
-            ctx.fillText('Continuar',700,410);
-            ctx.restore();
+    // function mascarasN1(){
+    //         if (mascaraClick(150,270,130,45,0.0)){// correcto Continua
+    //         ctx.save();
+    //         ctx.shadowColor = "black";
+    //         ctx.shadowOffsetX = 5;
+    //         ctx.shadowOffsetY = 3;
+    //         ctx.shadowBlur = 7;
+    //         ctx.beginPath();
+    //         ctx.fillStyle = '#33CC00';
+    //         ctx.arc(135, 290, 7, 0, 2 * Math.PI, false);
+    //         ctx.fill();
+    //         ctx.closePath();
+    //         ctx.restore();
+    //         continuarNivel2 = 1;
+    //     }
+    //     if ( (continuarNivel2 === 1) ){// Boton continuar nivel1 true
+    //         ctx.save();
+    //         ctx.shadowColor = "black";
+    //         ctx.shadowOffsetX = 5;
+    //         ctx.shadowOffsetY = 3;
+    //         ctx.shadowBlur = 7;
+    //         ctx.fillStyle = 'white';
+    //         ctx.font = 'bold 16pt sans-serif';
+    //         ctx.fillText('Continuar',700,410);
+    //         ctx.restore();
 
-             if (mascaraClick(700,395,100,18,0.0)){
+    //          if (mascaraClick(700,395,100,18,0.0)){
                 
-                texto1y2 = 1;
+    //             texto1y2 = 1;
                 
-             }
-        }
-        if (mascaraClick(150,170,100,45,0.0)){// error moquillo
-            ctx.save();
-            ctx.shadowColor = "#990000";
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 3;
-            ctx.shadowBlur = 7;
-            ctx.fillStyle = 'red';
-            ctx.font = 'bold 14pt sans-serif';
-            ctx.fillText('X',130,200);
-            ctx.restore();
-        }
-        if (mascaraClick(150,220,100,45,0.0)){// error epilepsia
-            ctx.save();
-            ctx.shadowColor = "#990000";
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 3;
-            ctx.shadowBlur = 7;
-            ctx.fillStyle = 'red';
-            ctx.font = 'bold 14pt  sans-serif';
-            ctx.fillText('X',130,250);
-            ctx.restore();
-        }
-        if (mascaraClick(150,320,420,45,0.0)){//  epilepsia
-            ctx.save();
-            ctx.shadowColor = "#990000";
-            ctx.shadowOffsetX = 5;
-            ctx.shadowOffsetY = 3;
-            ctx.shadowBlur = 7;
-            ctx.fillStyle = 'red';
-            ctx.font = 'bold 14pt sans-serif';
-            ctx.fillText('X',130,350);
-            ctx.restore();
-        }
-    }
-    function dibujarTextoComenzarExtraccion(){
-        dibujarFondoTexto(100,80,800, 270,violeta1, 1 );
-        dibujarTexto('Después de haber determinado el  diagnóstico  presuntivo del caso, se procede a la', 120, 130, colorTexto , fuente,0,0,0);
-        dibujarTexto('toma  del material biológico. Debes siempre tener en cuenta las  Normas de ', 120, 160, colorTexto, fuente,0,0,0);
-        dibujarTexto('toma  del material biológico. bioseguridad y limpieza para  llevar a cabo La práctica.  ', 120, 190, colorTexto, fuente,0,0,0);
-        dibujarTexto('Para poder realizar esta tarea, tienes que  trabajar  de la siguiente manera: ', 120, 220, colorTexto, fuente,0,0,0);
-        dibujarTexto('debes elegir y/o arrastrar los elementos que correspondan  para poder cumplir con ', 120, 250, colorTexto, fuente,0,0,0);
-        dibujarTexto('el objetivo buscado, que es llegar al diagnóstico definitivo. ', 120, 280, colorTexto, fuente,0,0,0);
-        dibujarTexto('Comenzar', 700, 320, colorTexto, fuente,3,3,4);
+    //          }
+    //     }
+    //     if (mascaraClick(150,170,100,45,0.0)){// error moquillo
+    //         ctx.save();
+    //         ctx.shadowColor = "#990000";
+    //         ctx.shadowOffsetX = 5;
+    //         ctx.shadowOffsetY = 3;
+    //         ctx.shadowBlur = 7;
+    //         ctx.fillStyle = 'red';
+    //         ctx.font = 'bold 14pt sans-serif';
+    //         ctx.fillText('X',130,200);
+    //         ctx.restore();
+    //     }
+    //     if (mascaraClick(150,220,100,45,0.0)){// error epilepsia
+    //         ctx.save();
+    //         ctx.shadowColor = "#990000";
+    //         ctx.shadowOffsetX = 5;
+    //         ctx.shadowOffsetY = 3;
+    //         ctx.shadowBlur = 7;
+    //         ctx.fillStyle = 'red';
+    //         ctx.font = 'bold 14pt  sans-serif';
+    //         ctx.fillText('X',130,250);
+    //         ctx.restore();
+    //     }
+    //     if (mascaraClick(150,320,420,45,0.0)){//  epilepsia
+    //         ctx.save();
+    //         ctx.shadowColor = "#990000";
+    //         ctx.shadowOffsetX = 5;
+    //         ctx.shadowOffsetY = 3;
+    //         ctx.shadowBlur = 7;
+    //         ctx.fillStyle = 'red';
+    //         ctx.font = 'bold 14pt sans-serif';
+    //         ctx.fillText('X',130,350);
+    //         ctx.restore();
+    //     }
+    // }
+    // function dibujarTextoComenzarExtraccion(){
+    //     dibujarFondoTexto(100,80,800, 270,violeta1, 1 );
+    //     dibujarTexto('Después de haber determinado el  diagnóstico  presuntivo del caso, se procede a la', 120, 130, colorTexto , fuente,0,0,0);
+    //     dibujarTexto('toma  del material biológico. Debes siempre tener en cuenta las  Normas de ', 120, 160, colorTexto, fuente,0,0,0);
+    //     dibujarTexto('toma  del material biológico. bioseguridad y limpieza para  llevar a cabo La práctica.  ', 120, 190, colorTexto, fuente,0,0,0);
+    //     dibujarTexto('Para poder realizar esta tarea, tienes que  trabajar  de la siguiente manera: ', 120, 220, colorTexto, fuente,0,0,0);
+    //     dibujarTexto('debes elegir y/o arrastrar los elementos que correspondan  para poder cumplir con ', 120, 250, colorTexto, fuente,0,0,0);
+    //     dibujarTexto('el objetivo buscado, que es llegar al diagnóstico definitivo. ', 120, 280, colorTexto, fuente,0,0,0);
+    //     dibujarTexto('Comenzar', 700, 320, colorTexto, fuente,3,3,4);
         
-        if (mascaraClick(700,300, 100,30, 0.0)){
-            //juego.estado = 'jugando';
-            ok = true;
-            continuarNivel2 = 0;
-            niveles[0] = 1;
-        }
-    }
+    //     if (mascaraClick(700,300, 100,30, 0.0)){
+    //         //juego.estado = 'jugando';
+    //         ok = true;
+    //         continuarNivel2 = 0;
+    //         niveles[0] = 1;
+    //     }
+    // }
 }

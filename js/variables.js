@@ -1,8 +1,15 @@
 var canvas = document.getElementById('game');
 var ctx = canvas.getContext('2d');
 
-// ======================================================
+/*MODALES
+ ======================================================*/
+var modal1 = true;
+var mod_acondicionar = true;
+var mod_diagnostico1 = true;
+var mod_diagnostico2 = false;
 
+
+//---------------------------------
 var preloader;
 var continuarNivel2 = 0;
 var dx, dy ;
@@ -65,25 +72,29 @@ var textoNivel1Sangre = [
 
 
 var objetos = [
-    { id: 'peladora',    est: 0, x: 200, y: 480, width: 70,  height: 90 },
-    { id: 'goma',        est: 0, x: 380, y: 530, width: 60, height: 40 },
+    { id: 'peladora', est: 0, x: 200, y: 480, width: 70,  height: 90 },
+    { id: 'goma',     est: 0, x: 380, y: 530, width: 60, height: 40 },
     { id: 0, agu: -1, est: 0, x: 465, y: 560, width: 22, height: 80 },
     { id: 1, agu: -1, est: 0, x: 495, y: 560, width: 22, height: 80 },
     { id: 2, agu: -1, est: 0, x: 520, y: 560, width: 22, height: 80 },
     { id: 3, agu: -1, est: 0, x: 545, y: 560, width: 22, height: 80 },
     { id: 4, agu: -1, est: 0, x: 575, y: 560, width: 22, height: 80 },
-    { id: 5, agu: -1, est: 0, x: 600, y: 560, width: 22, height: 80 }
+    { id: 5, agu: -1, est: 0, x: 600, y: 560, width: 22, height: 80 },
+    { id: 6, agu: -1, est: 0, x: 100, y: 347, width: 20, height: 30 }, // refrigerante
+    { id: 7, agu: -1, est: 0, x: 400, y: 560, width: 32, height: 60 }, // eppendorf
+    { id: 8, agu: -1, est: 0, x: 500, y: 540, width: 70, height: 100 } // bolsa1
 ];
-var objetoTuboTapa =       { id: 'tubo',est: 0, x: 545, y: 560, width: 15, height: 10 };
+var objetoNev1 = { id: 'nevera1',est: 0, x: 245, y: 480, width: 100, height: 150 }; //nevera1
+var objetoNev2 = { id: 'nevera2',est: 0, x: 545, y: 560, width: 100, height: 150 }; //nevera2
+var objetoBolsa2 = { id: 'bolsa2',est: 0, x: 645, y: 560, width: 80, height: 90 }; // bolsa 2
+var objetoHela1 = { id: 'hela1',est: 0, x: -25, y: 185, width: 300, height: 350 }; // Hela1
+var objetoHela2 = { id: 'hela2',est: 0, x: -25, y: 185, width: 300, height: 350 }; // Hela2
 
+
+var objetoTuboTapa = { id: 'tubo',est: 0, x: 545, y: 560, width: 15, height: 10 };
 var objetoTS =       { id: 'Suero', agu: -1, est: 0, x: 355, y: 420, width: 18, height: 90 };
-
-
 var objetoPip =          { id: 'pip',est: 0, x: 345, y: 200, width: 30, height: 150 };
 var objetoPS =     { id: 'ps',est: 0, x: 345, y: 100, width: 30, height: 150 };
-
-
-
 var agujeros = [ // agujeros de contaco con la centrifuga
     { id: 0,est: 0, x: 295, y: 490, width: 3, height: 2 },
     { id: 1,est: 0, x: 340, y: 500, width: 3, height: 2 },
@@ -146,8 +157,42 @@ var objetoActual = null;
 var mouseOld = {};
 var mouseNew = {};
 
+/*de Nivel 3
+==============================*/
 
-/* Nivel 3
+var contM = [];
+
+var time = 100;
+var mostrarNom = false;
+var seleccion = [];
+var pri = [ // guardo el agujero y el tubo principales
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1}
+];
+var sec = [ // guardo el agujero y el tubo secundarios
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1},
+            {a: -1, t: -1}
+];
+var diag1 = [];
+var diag2 = [];
+var verificacionP = false;
+var verificacionS = false;
+var verificacionSemiFinal = false;
+
+var rpm = [];
+var tiempoC = [];
+var mostrarTextoRPM = false;
+var verificacionSuperFinal = -1;
+var contadorFinal = 0;
+var mostrarResultadoFinal = false;
+var contPP = 0;
+var contP = 0;
+
+/*  imagens
 --------------------------------*/
 var imgDescartador, imgGradilla, imgTacho, imgTubo, imgJeringa2, imgJeringa3;
 var imgGoma2, imgBrazo, imgBrazo2, imgSultan, imgPeladora, imgManos;
@@ -157,6 +202,7 @@ var imgDescartador, imgHand2, imgCent;
 var img01n2, img02n2;
 var imgT1, imgT2, imgT3, imgT4;
 var imgTuboTapa, imgCentCerrada, imgPip, imgPS, imgts;
+var imgRef, imgNev1, imgNev2, imgEpp, imgBolsa1, imgBolsa2, imgHela1, imgHela2, imgEpp;
 
 var imagenes = ['img/etapa1/brazo.png','img/etapa1/cajaGuantes.png',
 'img/etapa1/goma.png', 'img/etapa1/sultan2.png','img/etapa1/fondo.png','img/etapa1/hand2.png',
@@ -167,7 +213,9 @@ var imagenes = ['img/etapa1/brazo.png','img/etapa1/cajaGuantes.png',
 'img/etapa1/hisopo.png', 'img/etapa1/frasco.png', 'img/etapa1/vidrio.png',  'img/etapa1/centrifuga.png',
 'img/etapa1/txt/01n2.png', 'img/etapa1/txt/02n2.png', 'img/etapa1/t1.png', 'img/etapa1/t2.png',
 'img/etapa1/t3.png', 'img/etapa1/t4.png', 'img/etapa1/t5.png', 'img/etapa1/t6.png', 'img/etapa1/pip.png', 'img/etapa1/pipSuero.png',
-'img/etapa1/tuboTapa.png', 'img/etapa1/centrifugaCerrada.png', 'img/etapa1/ts.png'
+'img/etapa1/tuboTapa.png', 'img/etapa1/centrifugaCerrada.png', 'img/etapa1/ts.png',
+'img/etapa1/hela1.png','img/etapa1/hela2.png', 'img/etapa1/ref.png', 'img/etapa1/epp.png', 'img/etapa1/nev1.png', 'img/etapa1/nev2.png',
+'img/etapa1/bolsa1.png', 'img/etapa1/bolsa2.png',
 ];
 
 //Funciones de carga de imagenes
@@ -280,5 +328,24 @@ function progresoCarga() {
         imgPS.src = 'img/etapa1/pipSuero.png';
         imgts = new Image();
         imgts.src = 'img/etapa1/ts.png';
+
+
+        imgRef = new Image();
+        imgRef.src = 'img/etapa1/ref.png';
+        imgNev1 = new Image();
+        imgNev1.src = 'img/etapa1/nev1.png';
+        imgNev2 = new Image();
+        imgNev2.src = 'img/etapa1/nev2.png';
+        imgEpp = new Image();
+        imgEpp.src = 'img/etapa1/epp.png';
+        imgBolsa1 = new Image();
+        imgBolsa1.src = 'img/etapa1/bolsa1.png';
+        imgBolsa2 = new Image();
+        imgBolsa2.src = 'img/etapa1/bolsa2.png';
+        imgHela1 = new Image();
+        imgHela1.src = 'img/etapa1/hela1.png';
+        imgHela2 = new Image();
+        imgHela2.src = 'img/etapa1/hela2.png';
+
     }
 }

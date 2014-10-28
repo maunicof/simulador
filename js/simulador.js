@@ -1,13 +1,5 @@
-// Carga pop up al iniciar =============================
 
-$(window).load(function(){
-        //$('#osis').modal('show');
-        $('body').on('hidden.bs.modal', '.modal', function () { // video pause al cerrar modal
-        $('video').trigger('pause');
-        });
-});
-
-
+//===============
 function drawBackground() {
     ctx.drawImage(fondo, 0, 0, 1000, 660);
 }
@@ -48,9 +40,13 @@ function dibujarObjetos() {
         if (niveles[3] === 1) {
              dibujarCent();
          }
+         if (niveles[4] === 1) {
+            nivel4();
+         }
         
         
     }
+     nivel4();
     //dibujarCent();
     dibujarManos();
 }
